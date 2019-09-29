@@ -9,10 +9,13 @@ export default class App extends React.Component {
     this.state = {
       filters: {
         sort_by: "popularity.desc",
-        primary_release_year: ""
+        primary_release_year: "",
+        with_genres: []
       },
-      page: 1,
-      totalPages: ""
+      pagination: {
+        page: 1,
+        totalPages: ""
+      }
     };
   }
 
@@ -26,20 +29,32 @@ export default class App extends React.Component {
     });
   };
 
-  onChangePage = page => {
-    this.setState({
-      page
-    });
+  onChangePagination = ({ name, value }) => {
+    this.setState(prevState => ({
+      pagination: {
+        ...prevState.pagination,
+        [name]: value
+      }
+    }));
   };
 
-  onChangeTotalPages = totalPages => {
+  resetFilters = () => {
     this.setState({
-      totalPages
+      filters: {
+        sort_by: "popularity.desc",
+        primary_release_year: "",
+        with_genres: []
+      },
+      pagination: {
+        page: 1,
+        totalPages: ""
+      }
     });
   };
 
   render() {
-    const { filters, page, totalPages } = this.state;
+    const { filters, pagination } = this.state;
+
     return (
       <div className="container">
         <div className="row mt-4">
@@ -50,10 +65,10 @@ export default class App extends React.Component {
                 <Filters
                   filters={filters}
                   onChangeFilter={this.onChangeFilter}
-                  onChangePage={this.onChangePage}
-                  onChangeYear={this.onChangeYear}
-                  page={page}
-                  totalPages={totalPages}
+                  onChangePagination={this.onChangePagination}
+                  pagination={pagination}
+                  resetFilters={this.resetFilters}
+                  setCheckboxesState={this.setCheckboxesState}
                 />
               </div>
             </div>
@@ -61,9 +76,8 @@ export default class App extends React.Component {
           <div className="col-8">
             <MoviesList
               filters={filters}
-              page={page}
-              onChangePage={this.onChangePage}
-              onChangeTotalPages={this.onChangeTotalPages}
+              pagination={pagination}
+              onChangePagination={this.onChangePagination}
             />
           </div>
         </div>

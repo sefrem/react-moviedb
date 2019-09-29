@@ -2,18 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export default class SortBy extends React.Component {
-  selectOptions = () => {
-    let arr = [];
-    for (let i = 2019; i >= 1900; i--) {
-      arr.push(
-        <option key={i} value={i}>
-          {i}
-        </option>
-      );
-    }
-    return arr;
-  };
-
   static propTypes = {
     onChangeFilter: PropTypes.func.isRequired,
     sort_by: PropTypes.string.isRequired
@@ -38,6 +26,19 @@ export default class SortBy extends React.Component {
       }
     ]
   };
+
+  selectOptions = () => {
+    let arr = [];
+    for (let i = 2019; i >= 1900; i--) {
+      arr.push(
+        <option key={i} value={i}>
+          {i}
+        </option>
+      );
+    }
+    return arr;
+  };
+
   render() {
     const {
       primary_release_year,
