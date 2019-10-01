@@ -1,12 +1,19 @@
 import React from "react";
 import Filters from "./Filters/Filters";
 import MoviesList from "./Movies/MoviesList";
+import Header from "./Header/Header";
+import Cookies from "universal-cookie";
+import { API_URL, API_KEY_3, fetchApi } from "../api/api";
+
+const cookies = new Cookies();
 
 export default class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
+      session_id: null,
+      user: null,
       filters: {
         sort_by: "popularity.desc",
         primary_release_year: "",
@@ -17,6 +24,22 @@ export default class App extends React.Component {
         totalPages: ""
       }
     };
+  }
+
+  updateSessionId = session_id => {
+    cookies.set("session_id", session_id, {
+      path: "/",
+      maxAge: 2592000
+    });
+    this.setState({
+      session_id
+    })
+  }
+
+  updateUser = user => {
+    this.setState({
+      user
+    })
   }
 
   onChangeFilter = e => {
@@ -52,10 +75,22 @@ export default class App extends React.Component {
     });
   };
 
+  componentDidMount() {
+    const session_id = cookies.get("session_id");
+    if(session_id) {
+      return fetchApi(`${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`)
+      .then(user => {
+        this.updateUser(user);
+      })
+    }
+  }
+
   render() {
-    const { filters, pagination } = this.state;
+    const { filters, pagination, user } = this.state;
 
     return (
+      <div>
+          <Header user={user} updateUser={this.updateUser} updateSessionId={this.updateSessionId} />
       <div className="container">
         <div className="row mt-4">
           <div className="col-4">
@@ -68,7 +103,6 @@ export default class App extends React.Component {
                   onChangePagination={this.onChangePagination}
                   pagination={pagination}
                   resetFilters={this.resetFilters}
-                  setCheckboxesState={this.setCheckboxesState}
                 />
               </div>
             </div>
@@ -81,6 +115,7 @@ export default class App extends React.Component {
             />
           </div>
         </div>
+      </div>
       </div>
     );
   }
