@@ -22,7 +22,7 @@ export default class LoginForm extends React.Component {
       [name]: value,
       errors: {
         ...prevState.errors,
-        [name]: null
+        [name]: ""
       }
     }));
   };

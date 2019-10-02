@@ -1,49 +1,9 @@
 import React from "react";
-import { API_URL, API_KEY_3 } from "../../api/api";
+import PropTypes from "prop-types";
 
-export default class Genres extends React.PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      moviesGenres: []
-    };
-  }
-
-  onChangeGenres = e => {
-    const value = e.target.value;
-    const { with_genres } = this.props;
-    this.props.onChangeFilter({
-      target: {
-        name: "with_genres",
-        value: with_genres.includes(value)
-          ? with_genres.filter(item => item !== value)
-          : [...with_genres, value]
-      }
-    });
-  };
-
-  getMoviesGenres = () => {
-    const link = `${API_URL}/genre/movie/list?api_key=${API_KEY_3}&language=en-US`;
-    fetch(link)
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        this.setState({
-          moviesGenres: data.genres
-        });
-      });
-  };
-
-  componentDidMount() {
-    this.getMoviesGenres();
-  }
-
-  render() {
-    const { with_genres } = this.props;
-    return (
-      <div className="form-check">
-        {this.state.moviesGenres.map(item => {
+const Genres = ({moviesGenres, with_genres, onChangeGenres}) => {
+return <div className="form-check">
+        {moviesGenres.map(item => {
           return (
             <div key={item.id}>
               <input
@@ -53,7 +13,7 @@ export default class Genres extends React.PureComponent {
                 id={item.id}
                 value={item.id}
                 name="with_genres"
-                onChange={this.onChangeGenres}
+                onChange={onChangeGenres}
               />
               <label className="form-check-label" htmlFor={item.id}>
                 {item.name}
@@ -62,6 +22,14 @@ export default class Genres extends React.PureComponent {
           );
         })}
       </div>
-    );
-  }
 }
+
+Genres.propTypes = {
+    moviesGenres: PropTypes.array.isRequired
+}
+
+Genres.defaultProps = {
+    moviesGenres: []
+}
+
+export default Genres;
