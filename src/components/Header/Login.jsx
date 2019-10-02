@@ -1,6 +1,6 @@
 import React from "react";
-import { Modal, ModalBody } from 'reactstrap';
-import LoginForm from "./LoginForm"
+import { Modal, ModalBody } from "reactstrap";
+import LoginForm from "./LoginForm";
 
 export default class Login extends React.Component {
   constructor() {
@@ -10,14 +10,14 @@ export default class Login extends React.Component {
     };
   }
 
-    toggleModal = () => {
-      this.setState(prevState => ({
-        showModal: !prevState.showModal
-      }));
-    }
+  toggleModal = () => {
+    this.setState(prevState => ({
+      showModal: !prevState.showModal
+    }));
+  };
 
   render() {
-    const {updateSessionId, updateUser } = this.props;
+    const { updateSessionId, updateUser } = this.props;
     return (
       <div>
         <button
@@ -27,13 +27,15 @@ export default class Login extends React.Component {
         >
           Login
         </button>
-        <Modal isOpen={this.state.showModal} toggle={this.toggleModal} >
-        <ModalBody>
-          <LoginForm updateUser={updateUser} updateSessionId={updateSessionId}/>
+        <Modal isOpen={this.state.showModal} toggle={this.toggleModal}>
+          <ModalBody>
+            <LoginForm
+              updateUser={updateUser}
+              updateSessionId={updateSessionId}
+            />
           </ModalBody>
         </Modal>
       </div>
     );
   }
 }
-

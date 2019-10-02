@@ -33,14 +33,14 @@ export default class App extends React.Component {
     });
     this.setState({
       session_id
-    })
-  }
+    });
+  };
 
   updateUser = user => {
     this.setState({
       user
-    })
-  }
+    });
+  };
 
   onChangeFilter = e => {
     const newFilter = {
@@ -77,11 +77,12 @@ export default class App extends React.Component {
 
   componentDidMount() {
     const session_id = cookies.get("session_id");
-    if(session_id) {
-      return fetchApi(`${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`)
-      .then(user => {
+    if (session_id) {
+      return fetchApi(
+        `${API_URL}/account?api_key=${API_KEY_3}&session_id=${session_id}`
+      ).then(user => {
         this.updateUser(user);
-      })
+      });
     }
   }
 
@@ -90,32 +91,36 @@ export default class App extends React.Component {
 
     return (
       <div>
-          <Header user={user} updateUser={this.updateUser} updateSessionId={this.updateSessionId} />
-      <div className="container">
-        <div className="row mt-4">
-          <div className="col-4">
-            <div className="card" style={{ width: "100%" }}>
-              <div className="card-body">
-                <h3>Фильтры:</h3>
-                <Filters
-                  filters={filters}
-                  onChangeFilter={this.onChangeFilter}
-                  onChangePagination={this.onChangePagination}
-                  pagination={pagination}
-                  resetFilters={this.resetFilters}
-                />
+        <Header
+          user={user}
+          updateUser={this.updateUser}
+          updateSessionId={this.updateSessionId}
+        />
+        <div className="container">
+          <div className="row mt-4">
+            <div className="col-4">
+              <div className="card" style={{ width: "100%" }}>
+                <div className="card-body">
+                  <h3>Фильтры:</h3>
+                  <Filters
+                    filters={filters}
+                    onChangeFilter={this.onChangeFilter}
+                    onChangePagination={this.onChangePagination}
+                    pagination={pagination}
+                    resetFilters={this.resetFilters}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="col-8">
-            <MoviesList
-              filters={filters}
-              pagination={pagination}
-              onChangePagination={this.onChangePagination}
-            />
+            <div className="col-8">
+              <MoviesList
+                filters={filters}
+                pagination={pagination}
+                onChangePagination={this.onChangePagination}
+              />
+            </div>
           </div>
         </div>
-      </div>
       </div>
     );
   }
