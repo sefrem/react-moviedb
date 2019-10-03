@@ -91,41 +91,41 @@ export default class App extends React.Component {
     const { filters, pagination, user } = this.state;
 
     return (
-      <AppContext.Provider value={{
-        user: user,
-        updateUser: this.updateUser,
-        updateSessionId: this.updateSessionId
-      }}>
-      <div>
-        <Header
-        user={user}
-        />
-        <div className="container">
-          <div className="row mt-4">
-            <div className="col-4">
-              <div className="card" style={{ width: "100%" }}>
-                <div className="card-body">
-                  <h3>Фильтры:</h3>
-                  <Filters
-                    filters={filters}
-                    onChangeFilter={this.onChangeFilter}
-                    onChangePagination={this.onChangePagination}
-                    pagination={pagination}
-                    resetFilters={this.resetFilters}
-                  />
+      <AppContext.Provider
+        value={{
+          user: user,
+          updateUser: this.updateUser,
+          updateSessionId: this.updateSessionId
+        }}
+      >
+        <div>
+          <Header user={user} />
+          <div className="container">
+            <div className="row mt-4">
+              <div className="col-4">
+                <div className="card" style={{ width: "100%" }}>
+                  <div className="card-body">
+                    <h3>Фильтры:</h3>
+                    <Filters
+                      filters={filters}
+                      onChangeFilter={this.onChangeFilter}
+                      onChangePagination={this.onChangePagination}
+                      pagination={pagination}
+                      resetFilters={this.resetFilters}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-8">
-              <MoviesContainer
-                filters={filters}
-                pagination={pagination}
-                onChangePagination={this.onChangePagination}
-              />
+              <div className="col-8">
+                <MoviesContainer
+                  filters={filters}
+                  pagination={pagination}
+                  onChangePagination={this.onChangePagination}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </AppContext.Provider>
     );
   }

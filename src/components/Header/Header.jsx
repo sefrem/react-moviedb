@@ -14,11 +14,7 @@ export default class Header extends React.Component {
               </a>
             </li>
           </ul>
-          {this.props.user ? (
-            <User />
-          ) : (
-            <Login  />
-          )}
+          {this.props.user ? <User /> : <Login />}
         </div>
       </nav>
     );

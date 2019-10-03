@@ -26,7 +26,10 @@ export default class Filters extends React.Component {
           onChangePagination={onChangePagination}
         />
 
-        <GenresContainer with_genres={with_genres} onChangeFilter={onChangeFilter} />
+        <GenresContainer
+          with_genres={with_genres}
+          onChangeFilter={onChangeFilter}
+        />
         <ResetFilters resetFilters={resetFilters} />
       </form>
     );

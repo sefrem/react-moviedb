@@ -55,8 +55,6 @@ export default class MovieContainer extends Component {
   render() {
     const { movies } = this.state;
 
-    return (
-      <MoviesList movies={movies} />
-    );
+    return <MoviesList movies={movies} />;
   }
 }

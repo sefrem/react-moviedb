@@ -1,6 +1,6 @@
 import React from "react";
 import { API_URL, API_KEY_3 } from "../../api/api";
-import Genres from "./Genres"
+import Genres from "./Genres";
 
 export default class GenresContainer extends React.PureComponent {
   constructor() {
@@ -42,7 +42,11 @@ export default class GenresContainer extends React.PureComponent {
 
   render() {
     return (
-      <Genres moviesGenres={this.state.moviesGenres} with_genres={this.props.with_genres} onChangeGenres={this.onChangeGenres} />
+      <Genres
+        moviesGenres={this.state.moviesGenres}
+        with_genres={this.props.with_genres}
+        onChangeGenres={this.onChangeGenres}
+      />
     );
   }
 }

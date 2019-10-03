@@ -1,7 +1,7 @@
 import React from "react";
 import { API_URL, API_KEY_3, fetchApi } from "../../api/api";
 import Field from "../Utilities/Field";
-import { AppContext } from "../App"
+import { AppContext } from "../App";
 
 class LoginForm extends React.Component {
   state = {
@@ -201,18 +201,22 @@ class LoginForm extends React.Component {
   }
 }
 
-const LoginFormContainer = (props) => {
-  return <AppContext.Consumer>
-    {value => {
-      return <LoginForm 
-              updateUser={value.updateUser} 
-              updateSessionId={value.updateSessionId} 
-              {...props}
-              />
-    }}
-  </AppContext.Consumer>
-}
+const LoginFormContainer = props => {
+  return (
+    <AppContext.Consumer>
+      {value => {
+        return (
+          <LoginForm
+            updateUser={value.updateUser}
+            updateSessionId={value.updateSessionId}
+            {...props}
+          />
+        );
+      }}
+    </AppContext.Consumer>
+  );
+};
 
-LoginFormContainer.displayName="LoginFormContainer";
+LoginFormContainer.displayName = "LoginFormContainer";
 
 export default LoginFormContainer;
