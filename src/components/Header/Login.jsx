@@ -17,7 +17,6 @@ export default class Login extends React.Component {
   };
 
   render() {
-    const { updateSessionId, updateUser } = this.props;
     return (
       <div>
         <button
@@ -29,10 +28,7 @@ export default class Login extends React.Component {
         </button>
         <Modal isOpen={this.state.showModal} toggle={this.toggleModal}>
           <ModalBody>
-            <LoginForm
-              updateUser={updateUser}
-              updateSessionId={updateSessionId}
-            />
+            <LoginForm />
           </ModalBody>
         </Modal>
       </div>

@@ -6,6 +6,7 @@ import Cookies from "universal-cookie";
 import { API_URL, API_KEY_3, fetchApi } from "../api/api";
 
 const cookies = new Cookies();
+export const AppContext = React.createContext();
 
 export default class App extends React.Component {
   constructor() {
@@ -90,11 +91,14 @@ export default class App extends React.Component {
     const { filters, pagination, user } = this.state;
 
     return (
+      <AppContext.Provider value={{
+        user: user,
+        updateUser: this.updateUser,
+        updateSessionId: this.updateSessionId
+      }}>
       <div>
         <Header
-          user={user}
-          updateUser={this.updateUser}
-          updateSessionId={this.updateSessionId}
+        user={user}
         />
         <div className="container">
           <div className="row mt-4">
@@ -122,6 +126,7 @@ export default class App extends React.Component {
           </div>
         </div>
       </div>
+      </AppContext.Provider>
     );
   }
 }
