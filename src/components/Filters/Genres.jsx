@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import GenresHOC from "./GenresHOC"
 
 const Genres = ({ moviesGenres, with_genres, onChangeGenres }) => {
   return (
@@ -34,4 +35,4 @@ Genres.defaultProps = {
   moviesGenres: []
 };
 
-export default Genres;
+export default GenresHOC(Genres);
