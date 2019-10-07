@@ -1,7 +1,7 @@
 import React from "react";
 import CallApi from "../../api/api";
 import Field from "../Utilities/Field";
-import AppContextHOC from "../HOC/AppContextHOC"
+import AppContextHOC from "../HOC/AppContextHOC";
 
 class LoginForm extends React.Component {
   state = {
@@ -68,17 +68,19 @@ class LoginForm extends React.Component {
   login = async function() {
     try {
       let requestToken = await CallApi.get("/authentication/token/new");
-      let validation = await CallApi.post("/authentication/token/validate_with_login",
-        { body: {
+      let validation = await CallApi.post(
+        "/authentication/token/validate_with_login",
+        {
+          body: {
             username: this.state.username,
             password: this.state.password,
             request_token: requestToken.request_token
           }
         }
       );
-      let authentication = await CallApi.post("/authentication/session/new",
-      { body: {
-        request_token: validation.request_token
+      let authentication = await CallApi.post("/authentication/session/new", {
+        body: {
+          request_token: validation.request_token
         }
       });
       let session = await CallApi.get("/account", {
@@ -183,6 +185,5 @@ class LoginForm extends React.Component {
     );
   }
 }
-
 
 export default AppContextHOC(LoginForm);
