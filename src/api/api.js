@@ -1,3 +1,4 @@
+import queryString from "query-string"
 import { reject } from "q";
 
 export const API_URL = "https://api.themoviedb.org/3";
@@ -20,3 +21,20 @@ export async function fetchApi(url, options = {}) {
     return await reject(errorJ);
   }
 }
+
+export default class CallApi {
+ static get(url, options) {
+    const { params } = options;
+    const queryStringParams = {
+      api_key: API_KEY_3,
+      ...params
+    }
+   return fetchApi(`${API_URL}${url}?${queryString.stringify(queryStringParams)}`, {
+    mode: "cors",
+    headers: {
+      "Content-type": "application/json"
+    }
+  }
+    )}
+}
+  

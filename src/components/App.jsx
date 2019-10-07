@@ -70,8 +70,7 @@ export default class App extends React.Component {
         with_genres: []
       },
       pagination: {
-        page: 1,
-        totalPages: ""
+        page: 1
       }
     });
   };
