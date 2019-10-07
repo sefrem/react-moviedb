@@ -13,7 +13,7 @@ export default (Component) =>  class MoviesHOC extends React.Component {
   }
 
   getMovies = (filters, page) => {
-    const { sort_by, primary_release_year, with_genres } = filters;
+    const { sort_by, primary_release_year, with_genres  } = filters;
     const queryStringParams = {
       language: "ru-RU",
       sort_by: sort_by,
@@ -23,7 +23,6 @@ export default (Component) =>  class MoviesHOC extends React.Component {
     if (with_genres.length > 0) {
       queryStringParams.with_genres = with_genres.join(",");
     }
-    
     CallApi.get("/discover/movie", {
       params: queryStringParams})
       .then(data => {
@@ -45,17 +44,15 @@ export default (Component) =>  class MoviesHOC extends React.Component {
   componentDidUpdate(prevProps) {
     const {
       filters,
-      filters: { with_genres },
       pagination: { page },
       onChangePagination
     } = this.props;
 
     if (!_.isEqual(filters, prevProps.filters)) {
       onChangePagination({ name: "page", value: 1 });
-      this.getMovies(filters, 1, with_genres);
-    }
-    if (page !== prevProps.pagination.page) {
-      this.getMovies(filters, page, with_genres);
+      this.getMovies(filters, 1);
+    } else if (page !== prevProps.pagination.page) {
+      this.getMovies(filters, page);
     }
   }
 

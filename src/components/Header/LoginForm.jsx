@@ -1,5 +1,5 @@
 import React from "react";
-import { API_URL, API_KEY_3, fetchApi } from "../../api/api";
+import CallApi from "../../api/api";
 import Field from "../Utilities/Field";
 import AppContextHOC from "../HOC/AppContextHOC"
 
@@ -67,42 +67,25 @@ class LoginForm extends React.Component {
 
   login = async function() {
     try {
-      let requestToken = await fetchApi(
-        `${API_URL}/authentication/token/new?api_key=${API_KEY_3}`
-      );
-      let validation = await fetchApi(
-        `${API_URL}/authentication/token/validate_with_login?api_key=${API_KEY_3}`,
-        {
-          method: "POST",
-          mode: "cors",
-          headers: {
-            "Content-type": "application/json"
-          },
-          body: JSON.stringify({
+      let requestToken = await CallApi.get("/authentication/token/new");
+      let validation = await CallApi.post("/authentication/token/validate_with_login",
+        { body: {
             username: this.state.username,
             password: this.state.password,
             request_token: requestToken.request_token
-          })
+          }
         }
       );
-      let authentication = await fetchApi(
-        `${API_URL}/authentication/session/new?api_key=${API_KEY_3}`,
-        {
-          method: "POST",
-          mode: "cors",
-          headers: {
-            "Content-type": "application/json"
-          },
-          body: JSON.stringify({
-            request_token: validation.request_token
-          })
+      let authentication = await CallApi.post("/authentication/session/new",
+      { body: {
+        request_token: validation.request_token
         }
-      );
-      let session = await fetchApi(
-        `${API_URL}/account?api_key=${API_KEY_3}&session_id=${
-          authentication.session_id
-        }`
-      );
+      });
+      let session = await CallApi.get("/account", {
+        params: {
+          session_id: authentication.session_id
+        }
+      });
       this.props.updateSessionId(authentication.session_id);
       this.setState({
         submitting: false

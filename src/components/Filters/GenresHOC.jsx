@@ -1,5 +1,5 @@
 import React from "react";
-import { API_URL, API_KEY_3 } from "../../api/api";
+import CallApi from "../../api/api";
 
 export default (Component) => class GenresHOC extends React.PureComponent {
   constructor() {
@@ -23,12 +23,11 @@ export default (Component) => class GenresHOC extends React.PureComponent {
   };
 
   getMoviesGenres = () => {
-    const link = `${API_URL}/genre/movie/list?api_key=${API_KEY_3}&language=en-US`;
-    fetch(link)
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
+    CallApi.get('/genre/movie/list', {
+      params: {
+        language: "en-US"
+      }
+    }).then(data => {
         this.setState({
           moviesGenres: data.genres
         });
