@@ -6,6 +6,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import CallApi from "../../api/api";
 
 class UserMenu extends React.Component {
   state = {
@@ -17,6 +18,14 @@ class UserMenu extends React.Component {
       dropdownOpen: !prevState.dropdownOpen
     }));
   };
+
+  handleLogout = () => {
+    CallApi.logout("/authentication/session", {
+      body: {
+        session_id: this.props.session_id
+      }
+    }).then(this.props.onLogout())
+  }
 
   render() {
     const { user } = this.props;
@@ -38,7 +47,7 @@ class UserMenu extends React.Component {
           />
         </DropdownToggle>
         <DropdownMenu>
-          <DropdownItem onClick={this.props.onLogout}>Logout</DropdownItem>
+          <DropdownItem onClick={this.handleLogout}>Logout</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     );

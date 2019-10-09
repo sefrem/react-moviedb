@@ -106,7 +106,8 @@ export default class App extends React.Component {
           user: user,
           updateUser: this.updateUser,
           updateSessionId: this.updateSessionId,
-          onLogout: this.onLogout
+          onLogout: this.onLogout,
+          session_id: this.state.session_id
         }}
       >
         <div>
