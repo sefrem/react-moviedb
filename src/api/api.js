@@ -12,13 +12,13 @@ async function fetchApi(url, options = {}) {
   try {
     let response = await fetch(url, options);
     if (response.status < 400) {
-      return await response.json();
+      return response.json();
     } else {
       throw response;
     }
   } catch (error) {
     let errorJ = await error.json();
-    return await reject(errorJ);
+    return reject(errorJ);
   }
 }
 
