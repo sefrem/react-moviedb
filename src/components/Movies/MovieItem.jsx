@@ -53,7 +53,7 @@ class MovieItem extends React.Component {
           <h6 className="card-title">{item.title}</h6>
           <div className="card-text">Рейтинг: {item.vote_average}</div>
         </div>
-        <div>
+        <div  className="d-flex justify-content-between">
           <i
             className="material-icons"
             id="bookmark"
