@@ -1,15 +1,38 @@
 import React from "react";
+import "../../../node_modules/material-design-icons/iconfont/material-icons.css";
+import CallApi from "../../api/api";
+import AppContextHOC from "../HOC/AppContextHOC"
 
-import { Star, Bookmark } from '@material-ui/icons';
-
-
-
-export default class MovieItem extends React.Component {
-  show = e => {
-    console.log(e.target)
+class MovieItem extends React.Component {
+  state = {
+    like: false,
+    bookmark: false
   }
+
+  onToggleFavWatch = e => {
+    const id = e.target.id;
+    this.setState(prevState => ({
+     [id]: !prevState[id]
+    }))
+  }
+
+  onLike = (id, session_id) => {
+    CallApi.post("/account/{account_id}/favorite", {
+      params: {
+        session_id: session_id,
+        media_type: "movie",
+        media_id: id,
+        favorite: true
+      }
+    }).then(data => {
+      console.log(data);
+    })
+  }
+    
   render() {
-    const { item } = this.props;
+    const { item, session_id } = this.props;
+    const { like, bookmark } = this.state;
+   
     return (
       <div className="card" style={{ width: "100%" }}>
         <img
@@ -22,11 +45,16 @@ export default class MovieItem extends React.Component {
           <h6 className="card-title">{item.title}</h6>
           <div className="card-text">Рейтинг: {item.vote_average}</div>
         </div>
-        <Star onClick={this.show}/>
-        <Bookmark onClick={this.show}/>
-        
-        
+        <div>
+        <i className="material-icons" id="bookmark" onClick={this.onToggleFavWatch}>
+          { bookmark ? "bookmark" : "bookmark_border"}
+          </i>
+          <i className="material-icons" id="like" onClick={() => this.onLike(item.id, session_id)}>
+          { like ? "star" : "star_border"}
+          </i></div>
       </div>
     );
   }
 }
+
+export default AppContextHOC(MovieItem);
