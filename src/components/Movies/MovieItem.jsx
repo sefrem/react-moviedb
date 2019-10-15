@@ -1,38 +1,46 @@
 import React from "react";
 import "../../../node_modules/material-design-icons/iconfont/material-icons.css";
 import CallApi from "../../api/api";
-import AppContextHOC from "../HOC/AppContextHOC"
+import AppContextHOC from "../HOC/AppContextHOC";
 
 class MovieItem extends React.Component {
   state = {
     like: false,
     bookmark: false
-  }
+  };
 
   onToggleFavWatch = e => {
     const id = e.target.id;
     this.setState(prevState => ({
-     [id]: !prevState[id]
-    }))
-  }
+      [id]: !prevState[id]
+    }));
+    if(this.props.session_id) this.onWatchLike(id);
+  };
 
-  onLike = (id, session_id) => {
-    CallApi.post("/account/{account_id}/favorite", {
+  onWatchLike = id => {
+    const { session_id, item } = this.props,
+          { like, bookmark } = this.state,
+          likeUrl = "/account/{account_id}/favorite",
+          watchUrl = "/account/{account_id}/watchlist",
+          check = id === "like";
+    CallApi.post(`${check ? likeUrl : watchUrl}`, {
       params: {
         session_id: session_id,
         media_type: "movie",
-        media_id: id,
-        favorite: true
+        media_id: item.id,
+        ...check && { favorite: `${!like ? true : false}` } || {
+                      watchlist: `${!bookmark ? true : false}`
+        }
       }
     }).then(data => {
-      console.log(data);
-    })
-  }
-    
+      console.log(data.status_message);
+    });
+  };
+
   render() {
-    const { item, session_id } = this.props;
+    const { item } = this.props;
     const { like, bookmark } = this.state;
-   
+
     return (
       <div className="card" style={{ width: "100%" }}>
         <img
@@ -46,12 +54,21 @@ class MovieItem extends React.Component {
           <div className="card-text">Рейтинг: {item.vote_average}</div>
         </div>
         <div>
-        <i className="material-icons" id="bookmark" onClick={this.onToggleFavWatch}>
-          { bookmark ? "bookmark" : "bookmark_border"}
+          <i
+            className="material-icons"
+            id="bookmark"
+            onClick={this.onToggleFavWatch}
+          >
+            {bookmark ? "bookmark" : "bookmark_border"}
           </i>
-          <i className="material-icons" id="like" onClick={() => this.onLike(item.id, session_id)}>
-          { like ? "star" : "star_border"}
-          </i></div>
+          <i
+            className="material-icons"
+            id="like"
+            onClick={this.onToggleFavWatch}
+          >
+            {like ? "star" : "star_border"}
+          </i>
+        </div>
       </div>
     );
   }

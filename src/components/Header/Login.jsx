@@ -1,13 +1,18 @@
 import React from "react";
 import { Modal, ModalBody } from "reactstrap";
 import LoginForm from "./LoginForm";
+import AppContextHOC from "../HOC/AppContextHOC";
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   constructor() {
     super();
     this.state = {
       showModal: false
     };
+  }
+
+  componentDidMount() {
+    if (!this.props.session_id) this.toggleModal();
   }
 
   toggleModal = () => {
@@ -35,3 +40,5 @@ export default class Login extends React.Component {
     );
   }
 }
+
+export default AppContextHOC(Login);
