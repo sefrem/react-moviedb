@@ -23,7 +23,8 @@ export default class App extends React.Component {
       pagination: {
         page: 1,
         totalPages: ""
-      }
+      }, 
+      showModal: false
     };
   }
 
@@ -83,6 +84,12 @@ export default class App extends React.Component {
     });
   };
 
+  toggleModal = () => {
+    this.setState(prevState => ({
+      showModal: !prevState.showModal
+    }));
+  };
+
   componentDidMount() {
     const session_id = cookies.get("session_id");
     if (session_id) {
@@ -107,7 +114,9 @@ export default class App extends React.Component {
           updateUser: this.updateUser,
           updateSessionId: this.updateSessionId,
           onLogout: this.onLogout,
-          session_id: this.state.session_id
+          session_id: this.state.session_id,
+          showModal: this.state.showModal,
+          toggleModal: this.toggleModal
         }}
       >
         <div>
