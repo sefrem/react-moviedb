@@ -1,6 +1,6 @@
 import React from "react";
-import Like from "../Utilities/Like";
-import Bookmark from "../Utilities/Bookmark";
+import Like from "../UI Components/Like";
+import Bookmark from "../UI Components/Bookmark";
 import AppContextHOC from "../HOC/AppContextHOC";
 
 class MovieItem extends React.Component {
