@@ -6,7 +6,7 @@ class Bookmark extends React.Component {
     state = {
         bookmark: false
     }
-
+    
     onToggleBookmark = () => {
       if(!this.props.session_id) {
         this.props.toggleModal()
@@ -34,6 +34,7 @@ class Bookmark extends React.Component {
       
     render() {
         const { bookmark } = this.state;
+        console.log('controlled console');
         return (
             <i
             className="material-icons"
