@@ -2,12 +2,11 @@ import React from "react";
 
 export default class Pagination extends React.Component {
 
-  
+  handleClick = value => () => this.props.onChangePagination({ name: "page", value: value});
   
   render() {
     const {
-      pagination: { page, totalPages },
-      onChangePagination
+      pagination: { page, totalPages }
     } = this.props;
     return (
       <div>
@@ -16,7 +15,7 @@ export default class Pagination extends React.Component {
             type="button"
             className="btn btn-light"
             disabled={page === 1}
-            onClick={onChangePagination.bind(null, { name: "page", value: page - 1 })}
+            onClick={this.handleClick(page-1)}
             name="page"
           >
             Previous
@@ -25,7 +24,7 @@ export default class Pagination extends React.Component {
             type="button"
             className="btn btn-light"
             disabled={page === totalPages}
-            onClick={onChangePagination.bind(null, { name: "page", value: page + 1 })}
+            onClick={this.handleClick(page+1)}
             name="page"
           >
             Next
