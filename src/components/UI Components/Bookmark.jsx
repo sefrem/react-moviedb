@@ -34,7 +34,6 @@ class Bookmark extends React.Component {
       
     render() {
         const { bookmark } = this.state;
-        console.log('controlled console');
         return (
             <i
             className="material-icons"
