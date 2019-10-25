@@ -13,8 +13,7 @@ class Bookmark extends React.Component {
       } else {
         this.setState(prevState => ({
             bookmark: !prevState.bookmark
-        }),
-        this.onBookmark(!this.state.bookmark)
+        }), () => this.onBookmark(this.state.bookmark)
         );
       }
       };
