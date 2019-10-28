@@ -1,9 +1,10 @@
 import React from "react";
-import Filters from "./Filters/Filters";
-import MoviesList from "./Movies/MoviesList";
 import Header from "./Header/Header";
 import Cookies from "universal-cookie";
 import CallApi from "../api/api";
+import MoviesPage from "../Pages/MoviesPage/MoviesPage";
+import MoviePage from "../Pages/MoviePage/MoviePage";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 
 const cookies = new Cookies();
 export const AppContext = React.createContext();
@@ -15,18 +16,9 @@ export default class App extends React.Component {
     this.state = {
       session_id: null,
       user: null,
-      filters: {
-        sort_by: "popularity.desc",
-        primary_release_year: "",
-        with_genres: []
-      },
-      pagination: {
-        page: 1,
-        totalPages: ""
-      }, 
       showModal: false
-    };
   }
+}
 
   updateSessionId = session_id => {
     cookies.set("session_id", session_id, {
@@ -52,44 +44,14 @@ export default class App extends React.Component {
     });
   };
 
-  onChangeFilter = e => {
-    const newFilter = {
-      ...this.state.filters,
-      [e.target.name]: e.target.value
-    };
-    this.setState({
-      filters: newFilter
-    });
-  };
-
-  onChangePagination = ({ name, value }) => {
-    this.setState(prevState => ({
-      pagination: {
-        ...prevState.pagination,
-        [name]: value
-      }
-    }));
-  };
-
-  resetFilters = () => {
-    this.setState({
-      filters: {
-        sort_by: "popularity.desc",
-        primary_release_year: "",
-        with_genres: []
-      },
-      pagination: {
-        page: 1
-      }
-    });
-  };
-
+  
   toggleModal = () => {
     this.setState(prevState => ({
       showModal: !prevState.showModal
     }));
   };
 
+ 
   componentDidMount() {
     const session_id = cookies.get("session_id");
     if (session_id) {
@@ -105,49 +67,29 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { filters, pagination, user } = this.state;
+    const {  user, session_id, showModal } = this.state;
 
     return (
+      <BrowserRouter>
       <AppContext.Provider
         value={{
           user: user,
           updateUser: this.updateUser,
           updateSessionId: this.updateSessionId,
           onLogout: this.onLogout,
-          session_id: this.state.session_id,
-          showModal: this.state.showModal,
+          session_id: session_id,
+          showModal: showModal,
           toggleModal: this.toggleModal
         }}
       >
         <div>
           <Header user={user} />
-          <div className="container">
-            <div className="row mt-4">
-              <div className="col-4">
-                <div className="card" style={{ width: "100%" }}>
-                  <div className="card-body">
-                    <h3>Фильтры:</h3>
-                    <Filters
-                      filters={filters}
-                      onChangeFilter={this.onChangeFilter}
-                      onChangePagination={this.onChangePagination}
-                      pagination={pagination}
-                      resetFilters={this.resetFilters}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-8">
-                <MoviesList
-                  filters={filters}
-                  pagination={pagination}
-                  onChangePagination={this.onChangePagination}
-                />
-              </div>
-            </div>
-          </div>
+          <Route exact path="/" component={MoviesPage} />
+          <Route path="/movie/:id" component={MoviePage} />
+          
         </div>
       </AppContext.Provider>
+      </BrowserRouter>
     );
   }
 }

@@ -1,7 +1,8 @@
 import React from "react";
-import Like from "../Utilities/Like";
-import Bookmark from "../Utilities/Bookmark";
+import Like from "../UI Components/Like";
+import Bookmark from "../UI Components/Bookmark";
 import AppContextHOC from "../HOC/AppContextHOC";
+import {Link} from "react-router-dom";
 
 class MovieItem extends React.Component {
 
@@ -17,7 +18,7 @@ class MovieItem extends React.Component {
           alt=""
         />
         <div className="card-body">
-          <h6 className="card-title">{item.title}</h6>
+          <Link className="card-title" to={`/movie/${item.id}`}>{item.title}</Link>
           <div className="card-text">Рейтинг: {item.vote_average}</div>
         </div>
         <div  className="d-flex justify-content-between">

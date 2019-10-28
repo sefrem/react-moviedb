@@ -14,20 +14,19 @@ class Like extends React.Component {
       } else {
         this.setState(prevState => ({
           like: !prevState.like
-        }));
-        this.onLike();
+        }), () => this.onLike(this.state.like)
+        );
       }
       };
 
-      onLike = () => {
+      onLike = (likeState) => {
         const { session_id, item } = this.props;
-          const  { like } = this.state;
         CallApi.post('/account/{account_id}/favorite', {
           params: {
             session_id: session_id,
             media_type: "movie",
             media_id: item.id,
-            favorite: `${!like ? true : false}` 
+            favorite: likeState 
           }
         }).then(data => {
           console.log(data.status_message);
