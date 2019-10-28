@@ -2,7 +2,7 @@ import React from "react";
 import Like from "../UI Components/Like";
 import Bookmark from "../UI Components/Bookmark";
 import AppContextHOC from "../HOC/AppContextHOC";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class MovieItem extends React.Component {
 
