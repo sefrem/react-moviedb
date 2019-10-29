@@ -18,7 +18,7 @@ class MovieItem extends React.Component {
           alt=""
         />
         <div className="card-body">
-          <Link className="card-title" to={`/movie/${item.id}`}>{item.title}</Link>
+          <Link className="card-title" to={`/movie/${item.id}/details`}>{item.title}</Link>
           <div className="card-text">Рейтинг: {item.vote_average}</div>
         </div>
         <div  className="d-flex justify-content-between">
