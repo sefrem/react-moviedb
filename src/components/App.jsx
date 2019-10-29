@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 import CallApi from "../api/api";
 import MoviesPage from "../Pages/MoviesPage/MoviesPage";
 import MoviePage from "../Pages/MoviePage/MoviePage";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 
 const cookies = new Cookies();
 export const AppContext = React.createContext();
