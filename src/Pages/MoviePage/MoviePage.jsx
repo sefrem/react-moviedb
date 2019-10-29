@@ -3,7 +3,7 @@ import CallApi from "../../api/api";
 import Like from "../../components/UI Components/Like";
 import Bookmark from "../../components/UI Components/Bookmark";
 import { Link, NavLink } from "react-router-dom";
-import { TabContent, TabPane, Nav, NavItem } from 'reactstrap';
+import { Nav, NavItem } from 'reactstrap';
 import { Route, Switch } from "react-router-dom";
 
 export default class MoviePage extends React.Component {
