@@ -1,5 +1,5 @@
 import React from "react";
-import {  Table } from 'reactstrap';
+import { Table } from 'reactstrap';
 
 
 export default class MovieDetails extends React.Component {
@@ -10,8 +10,8 @@ export default class MovieDetails extends React.Component {
 
     render() {
         const { movie } = this.props;
-        console.log(movie)
         return (
+            
               <Table className="mt-4">
                   <tbody>
                 <tr>
@@ -63,7 +63,7 @@ export default class MovieDetails extends React.Component {
                 </tr>
                 </tbody>
               </Table>
-        
+              
         )
     }
 }

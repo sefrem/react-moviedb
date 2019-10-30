@@ -40,8 +40,10 @@ export default class MoviePage extends React.Component {
       release_date,
       id
     } = this.state.movie;
+    const { movie, videos, credits } = this.state;
     const release_year = `${release_date}`.split("-")[0];
     return (
+      
       <div className="container">
         <Link to="/">Back</Link>
         <div className="row mt-4">
@@ -92,14 +94,15 @@ export default class MoviePage extends React.Component {
               </NavLink>
             </NavItem>
           </Nav>
-
-          <Switch>
-            <Route path="/movie/:id/details"><MovieDetails movie = {this.state.movie}/> </Route>
-            <Route path="/movie/:id/videos"><MovieVideos videos = {this.state.videos} /> </Route>
-            <Route path="/movie/:id/credits"><MovieCredits credits = {this.state.credits} /> </Route>
-          </Switch>
         </div>
+          <Switch>
+            <Route path="/movie/:id/details"><MovieDetails movie = {movie}/> </Route>
+            <Route path="/movie/:id/videos"><MovieVideos videos = {videos} /> </Route>
+            <Route path="/movie/:id/credits"><MovieCredits credits = {credits} /> </Route>
+          </Switch>
+         
       </div>
+     
     );
   }
 }

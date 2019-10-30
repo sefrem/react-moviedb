@@ -82,12 +82,10 @@ export default class App extends React.Component {
           toggleModal: this.toggleModal
         }}
       >
-        <div>
           <Header user={user} />
           <Route exact path="/" component={MoviesPage} />
           <Route path="/movie/:id" component={MoviePage} />
-          
-        </div>
+        
       </AppContext.Provider>
       </BrowserRouter>
     );

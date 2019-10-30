@@ -56,7 +56,6 @@ export default class MoviesPage extends React.Component {
     const { filters, pagination } = this.state;
 
     return (
-        <div>
           <div className="container">
             <div className="row mt-4">
               <div className="col-4">
@@ -82,8 +81,6 @@ export default class MoviesPage extends React.Component {
               </div>
             </div>
           </div>
-        </div>
-
     );
   }
 }
