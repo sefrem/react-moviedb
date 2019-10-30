@@ -5,11 +5,15 @@ import Bookmark from "../../components/UI Components/Bookmark";
 import { Link, NavLink } from "react-router-dom";
 import { Nav, NavItem } from "reactstrap";
 import { Route, Switch } from "react-router-dom";
-import MovieDetails from "./MovieDetails";
+import  MovieDetails from "./MovieDetails";
+import  MovieVideos from "./MovieVideos";
+import  MovieCredits from "./MovieCredits";
 
 export default class MoviePage extends React.Component {
   state = {
-    movie: {}
+    movie: {},
+    videos: [],
+    credits: []
   };
 
   componentDidMount() {
@@ -18,11 +22,15 @@ export default class MoviePage extends React.Component {
         movie: response
       })
     );
+    CallApi.get(`/movie/${this.props.match.params.id}/videos`).then(response => 
+        this.setState({
+            videos: response.results
+        }));
+    CallApi.get(`/movie/${this.props.match.params.id}/credits`).then(response => 
+        this.setState({
+            credits: response.cast
+        }))
   }
-
-  click = e => {
-    console.log(e.target);
-  };
 
   render() {
     const {
@@ -54,7 +62,7 @@ export default class MoviePage extends React.Component {
           </div>
         </div>
 
-        <div>
+        <div className="mt-4">
           <Nav tabs>
             <NavItem>
               <NavLink
@@ -87,7 +95,8 @@ export default class MoviePage extends React.Component {
 
           <Switch>
             <Route path="/movie/:id/details"><MovieDetails movie = {this.state.movie}/> </Route>
-            <Route path="/movie/:id/videos" component={Bookmark} />
+            <Route path="/movie/:id/videos"><MovieVideos videos = {this.state.videos} /> </Route>
+            <Route path="/movie/:id/credits"><MovieCredits credits = {this.state.credits} /> </Route>
           </Switch>
         </div>
       </div>
