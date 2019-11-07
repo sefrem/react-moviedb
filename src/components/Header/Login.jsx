@@ -4,7 +4,6 @@ import LoginForm from "./LoginForm";
 import AppContextHOC from "../HOC/AppContextHOC";
 
 class Login extends React.Component {
-
   render() {
     return (
       <div>

@@ -1,6 +1,7 @@
 import React from "react";
 import CallApi from "../../api/api";
 import _ from "lodash";
+import Loader from "../UI/Loader";
 
 export default Component =>
   class MoviesHOC extends React.Component {
@@ -8,6 +9,7 @@ export default Component =>
       super();
 
       this.state = {
+        isLoading: true,
         movies: []
       };
     }
@@ -15,7 +17,7 @@ export default Component =>
     getMovies = (filters, page) => {
       const { sort_by, primary_release_year, with_genres } = filters;
       const queryStringParams = {
-        language: "ru-RU",
+        language: "en-EN",
         sort_by: sort_by,
         page: page,
         primary_release_year: primary_release_year
@@ -23,11 +25,15 @@ export default Component =>
       if (with_genres.length > 0) {
         queryStringParams.with_genres = with_genres.join(",");
       }
+      this.setState({
+        isLoading: true
+      });
       CallApi.get("/discover/movie", {
         params: queryStringParams
       }).then(data => {
         this.setState({
-          movies: data.results
+          movies: data.results,
+          isLoading: false
         });
         this.props.onChangePagination({
           name: "totalPages",
@@ -57,8 +63,16 @@ export default Component =>
     }
 
     render() {
-      const { movies } = this.state;
+      const { movies, isLoading } = this.state;
 
-      return <Component {...this.props} movies={movies} />;
+      return (
+        <div>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <Component {...this.props} movies={movies} />
+          )}
+        </div>
+      );
     }
   };

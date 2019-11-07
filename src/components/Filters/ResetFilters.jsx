@@ -6,10 +6,11 @@ export default class ResetFilters extends React.Component {
       <div>
         <button
           type="button"
-          className="btn btn-primary"
+          className="btn btn-outline-info"
           onClick={this.props.resetFilters}
+          style={{ width: "180px" }}
         >
-          Reset
+          Reset All Filters
         </button>
       </div>
     );

@@ -17,8 +17,8 @@ export default class App extends React.Component {
       session_id: null,
       user: null,
       showModal: false
+    };
   }
-}
 
   updateSessionId = session_id => {
     cookies.set("session_id", session_id, {
@@ -44,14 +44,12 @@ export default class App extends React.Component {
     });
   };
 
-  
   toggleModal = () => {
     this.setState(prevState => ({
       showModal: !prevState.showModal
     }));
   };
 
- 
   componentDidMount() {
     const session_id = cookies.get("session_id");
     if (session_id) {
@@ -67,26 +65,25 @@ export default class App extends React.Component {
   }
 
   render() {
-    const {  user, session_id, showModal } = this.state;
+    const { user, session_id, showModal } = this.state;
 
     return (
       <BrowserRouter>
-      <AppContext.Provider
-        value={{
-          user: user,
-          updateUser: this.updateUser,
-          updateSessionId: this.updateSessionId,
-          onLogout: this.onLogout,
-          session_id: session_id,
-          showModal: showModal,
-          toggleModal: this.toggleModal
-        }}
-      >
+        <AppContext.Provider
+          value={{
+            user: user,
+            updateUser: this.updateUser,
+            updateSessionId: this.updateSessionId,
+            onLogout: this.onLogout,
+            session_id: session_id,
+            showModal: showModal,
+            toggleModal: this.toggleModal
+          }}
+        >
           <Header user={user} />
           <Route exact path="/" component={MoviesPage} />
           <Route path="/movie/:id" component={MoviePage} />
-        
-      </AppContext.Provider>
+        </AppContext.Provider>
       </BrowserRouter>
     );
   }

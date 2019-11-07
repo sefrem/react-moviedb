@@ -1,20 +1,43 @@
-import React from "react"
+import React from "react";
+import { withRouter } from "react-router";
+import CallApi from "../../api/api";
+import Loader from "../../components/UI/Loader";
+import MovieImage from "../../components/UI/MovieImage";
 
-export default class MovieCredits extends React.Component {
-    render() {
-        const { credits } = this.props;
-        return (
-           
-            <div className="row">
-                {credits.map((item, index) => (
-                    <div className="col-md-2 mt-2" key={index}>
-                        <img className="card-img-top" 
-                        src={`https://image.tmdb.org/t/p/w500${item.profile_path}`} alt="" />
-                       <span ><b>{item.name}</b> / {item.character}</span>
-                    </div>
-                ))}
+class MovieCredits extends React.Component {
+  state = {
+    isLoading: true,
+    credits: []
+  };
+
+  componentDidMount() {
+    CallApi.get(`/movie/${this.props.match.params.id}/credits`).then(response =>
+      this.setState({
+        credits: response.cast,
+        isLoading: false
+      })
+    );
+  }
+
+  render() {
+    const { credits, isLoading } = this.state;
+    return (
+      <div className="row">
+        {isLoading ? (
+          <Loader />
+        ) : (
+          credits.map((item, index) => (
+            <div className="col-md-2 mt-2" key={index}>
+              <MovieImage path={item.profile_path} />
+              <span>
+                <b>{item.name}</b> / {item.character}
+              </span>
             </div>
-            
-        )
-    }
+          ))
+        )}
+      </div>
+    );
+  }
 }
+
+export default withRouter(MovieCredits);

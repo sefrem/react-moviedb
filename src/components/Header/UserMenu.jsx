@@ -24,8 +24,8 @@ class UserMenu extends React.Component {
       body: {
         session_id: this.props.session_id
       }
-    }).then(this.props.onLogout())
-  }
+    }).then(this.props.onLogout());
+  };
 
   render() {
     const { user } = this.props;
@@ -43,7 +43,6 @@ class UserMenu extends React.Component {
               user.avatar.gravatar.hash
             }.jpg?s=64"`}
             alt="avatar"
-            onClick={this.toggleDropdown}
           />
         </DropdownToggle>
         <DropdownMenu>

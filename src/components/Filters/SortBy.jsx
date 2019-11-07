@@ -9,19 +9,19 @@ export default class SortBy extends React.PureComponent {
   static defaultProps = {
     options: [
       {
-        label: "Популярные по убыванию",
+        label: "Popularity descending",
         value: "popularity.desc"
       },
       {
-        label: "Популярные по возрастанию",
+        label: "Popularity ascending",
         value: "popularity.asc"
       },
       {
-        label: "Рейтинг по убыванию",
+        label: "Rating descending",
         value: "vote_average.desc"
       },
       {
-        label: "Рейтинг по возрастанию",
+        label: "Rating ascending",
         value: "vote_average.asc"
       }
     ]
@@ -48,9 +48,10 @@ export default class SortBy extends React.PureComponent {
     } = this.props;
 
     return (
-      <div>
+      <div className="mt-4">
+        <h3>Filters</h3>
         <div className="form-group">
-          <label htmlFor="sort_by">Сортировать по:</label>
+          <label htmlFor="sort_by">Sort By</label>
           <select
             className="form-control"
             name="sort_by"
@@ -69,7 +70,7 @@ export default class SortBy extends React.PureComponent {
         </div>
 
         <div className="form-group">
-          <label htmlFor="primary_release_year">Выбрать год</label>
+          <label htmlFor="primary_release_year">Year of Release</label>
           <select
             className="form-control"
             id="primary_release_year"
