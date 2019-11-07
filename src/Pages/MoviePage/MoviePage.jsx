@@ -24,7 +24,7 @@ export default class MoviePage extends React.Component {
   }
 
   render() {
-    const { movie, isLoading } = this.state;
+    
     return (
       <div>
         {isLoading ? (
