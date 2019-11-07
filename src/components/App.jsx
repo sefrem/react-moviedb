@@ -2,8 +2,8 @@ import React from "react";
 import Header from "./Header/Header";
 import Cookies from "universal-cookie";
 import CallApi from "../api/api";
-import MoviesPage from "../Pages/MoviesPage/MoviesPage";
-import MoviePage from "../Pages/MoviePage/MoviePage";
+import MoviesPage from "../pages/MoviesPage/MoviesPage";
+import MoviePage from "../pages/MoviePage/MoviePage";
 import { BrowserRouter, Route } from "react-router-dom";
 
 const cookies = new Cookies();
