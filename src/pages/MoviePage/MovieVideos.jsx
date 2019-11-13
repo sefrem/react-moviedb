@@ -2,27 +2,31 @@ import React from "react";
 import { withRouter } from "react-router";
 import CallApi from "../../api/api";
 import Loader from "../../components/UI/Loader";
+import AppContextProvider from "../../components/HOC/AppContextHOC"
 
 class MovieVideos extends React.Component {
   state = {
-    isLoading: true,
     videos: []
   };
 
   componentDidMount() {
-    CallApi.get(`/movie/${this.props.match.params.id}/videos`).then(response =>
+    const { toggleLoaderVideos } = this.props;
+    toggleLoaderVideos();
+    CallApi.get(`/movie/${this.props.match.params.id}/videos`).then(response => {
       this.setState({
-        videos: response.results,
-        isLoading: false
+        videos: response.results
       })
+    toggleLoaderVideos();
+    }
     );
   }
 
   render() {
-    const { videos, isLoading } = this.state;
+    const { isLoadingVideos } = this.props;
+    const { videos } = this.state;
     return (
       <div className="row">
-        {isLoading ? (
+        {isLoadingVideos ? (
           <Loader />
         ) : (
           videos.map((item, index) => (
@@ -40,4 +44,4 @@ class MovieVideos extends React.Component {
   }
 }
 
-export default withRouter(MovieVideos);
+export default withRouter(AppContextProvider(MovieVideos));

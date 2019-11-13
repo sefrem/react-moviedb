@@ -28,7 +28,6 @@ class MoviePage extends React.Component {
   render() {
     const { isLoading } = this.props;
     const { movie } = this.state;
-    console.log("render");
     return (
       <div>
         {isLoading ? (

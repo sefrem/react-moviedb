@@ -7,26 +7,28 @@ import AppContextHOC from "../../components/HOC/AppContextHOC";
 
 class MovieCredits extends React.Component {
   state = {
-    isLoading: true,
     credits: []
   };
 
   componentDidMount() {
+    const { toggleLoaderCredits } = this.props;
+    toggleLoaderCredits();
     CallApi.get(`/movie/${this.props.match.params.id}/credits`).then(
       response => {
         this.setState({
-          credits: response.cast,
-          isLoading: false
+          credits: response.cast
         });
+    toggleLoaderCredits();
       }
     );
   }
 
   render() {
-    const { credits, isLoading } = this.state;
+    const { isLoadingCredits } = this.props;
+    const { credits } = this.state;
     return (
       <div className="row">
-        {isLoading ? (
+        {isLoadingCredits ? (
           <Loader />
         ) : (
           credits.map((item, index) => (

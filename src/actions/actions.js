@@ -50,3 +50,15 @@ export const actionCreatorUpdateAuth = payload => {
         type: "TOGGLE_LOADER"
     }
   }
+
+  export const actionCreatorToggleLoaderVideos = () => {
+    return {
+      type: "TOGGLE_LOADER_VIDEOS"
+    }
+  }
+
+  export const actionCreatorToggleLoaderCredits = () => {
+    return {
+      type: "TOGGLE_LOADER_CREDITS"
+    }
+  }

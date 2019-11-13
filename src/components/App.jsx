@@ -11,7 +11,9 @@ import {
   actionCreatorOnChangeFilter,
   actionCreatorOnChangePagination,
   actionCreatorResetFilters,
-  actionCreatorToggleLoader
+  actionCreatorToggleLoader,
+  actionCreatorToggleLoaderVideos,
+  actionCreatorToggleLoaderCredits
 } from "../actions/actions";
 import { connect } from "react-redux";
 
@@ -45,7 +47,11 @@ class App extends React.Component {
       onChangePagination,
       resetFilters,
       toggleLoader,
-      isLoading
+      isLoading,
+      isLoadingVideos,
+      toggleLoaderVideos,
+      isLoadingCredits,
+      toggleLoaderCredits
     } = this.props;
 
     return (
@@ -64,7 +70,11 @@ class App extends React.Component {
             onChangePagination,
             resetFilters,
             toggleLoader,
-            isLoading
+            isLoading,
+            isLoadingVideos,
+            toggleLoaderVideos,
+            isLoadingCredits,
+            toggleLoaderCredits
           }}
         >
           <Header user={user} />
@@ -83,7 +93,9 @@ const mapStateToProps = state => {
     showModal: state.showModal,
     filters: state.filters,
     pagination: state.pagination,
-    isLoading: state.isLoading
+    isLoading: state.isLoading,
+    isLoadingVideos: state.videos.isLoading,
+    isLoadingCredits: state.credits.isLoading
   };
 };
 
@@ -97,7 +109,9 @@ const mapDispatchToProps = dispatch => {
     onChangePagination: ({ name, value }) =>
       dispatch(actionCreatorOnChangePagination(name, value)),
     resetFilters: () => dispatch(actionCreatorResetFilters()),
-    toggleLoader: () => dispatch(actionCreatorToggleLoader())
+    toggleLoader: () => dispatch(actionCreatorToggleLoader()),
+    toggleLoaderVideos: () => dispatch(actionCreatorToggleLoaderVideos()),
+    toggleLoaderCredits: () => dispatch(actionCreatorToggleLoaderCredits())
   };
 };
 

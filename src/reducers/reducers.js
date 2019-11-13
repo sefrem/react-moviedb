@@ -8,6 +8,12 @@ const initialState = {
   showModal: false,
   movies: [],
   isLoading: false,
+  videos: {
+    isLoading: false
+  },
+  credits: {
+    isLoading: false
+  },
   filters: {
     sort_by: "popularity.desc",
     primary_release_year: "",
@@ -77,6 +83,24 @@ const reducerApp = (state = initialState, action) => {
         ...state,
         isLoading: !state.isLoading
       };
+    case "TOGGLE_LOADER_VIDEOS":
+      const newVideos = {
+        ...state.videos,
+        isLoading: !state.videos.isLoading
+      }
+      return {
+        ...state,
+        videos: newVideos
+      };
+      case "TOGGLE_LOADER_CREDITS":
+          const newCredits = {
+            ...state.videos,
+            isLoading: !state.credits.isLoading
+          }
+          return {
+            ...state,
+            credits: newCredits
+          }
 
     default:
       return state;
