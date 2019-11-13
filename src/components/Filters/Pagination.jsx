@@ -1,14 +1,14 @@
 import React from "react";
 import ResetFilters from "./ResetFilters";
+import AppContextHOC from "../HOC/AppContextHOC";
 
-export default class Pagination extends React.Component {
+class Pagination extends React.Component {
   handleClick = value => () =>
     this.props.onChangePagination({ name: "page", value: value });
 
   render() {
     const {
-      pagination: { page, totalPages },
-      resetFilters
+      pagination: { page, totalPages }
     } = this.props;
     return (
       <div className="d-flex flex-column align-items-center">
@@ -29,7 +29,7 @@ export default class Pagination extends React.Component {
           <button
             type="button"
             className="btn btn-primary"
-            disabled={page === totalPages}
+            disabled={page === totalPages || page > totalPages}
             onClick={this.handleClick(page + 1)}
             name="page"
           >
@@ -37,9 +37,11 @@ export default class Pagination extends React.Component {
           </button>
         </div>
         <div className="mt-1">
-          <ResetFilters resetFilters={resetFilters} />
+          <ResetFilters />
         </div>
       </div>
     );
   }
 }
+
+export default AppContextHOC(Pagination);

@@ -2,33 +2,23 @@ import React from "react";
 import SortBy from "./SortBy";
 import Pagination from "./Pagination";
 import Genres from "./Genres";
+import AppContextHOC from "../../components/HOC/AppContextHOC";
 
-export default class Filters extends React.Component {
+class Filters extends React.Component {
   render() {
     const {
-      filters: { sort_by, primary_release_year, with_genres },
-      pagination,
-      onChangeFilter,
-      onChangePagination,
-      resetFilters
+      filters: { with_genres },
+      onChangeFilter
     } = this.props;
+
     return (
       <form className="mb-3">
-        <Pagination
-          pagination={pagination}
-          onChangePagination={onChangePagination}
-          resetFilters={resetFilters}
-        />
-        <SortBy
-          onChangeFilter={onChangeFilter}
-          sort_by={sort_by}
-          primary_release_year={primary_release_year}
-        />
-        <Genres
-          with_genres={with_genres}
-          onChangeFilter={onChangeFilter}
-        />
+        <Pagination />
+        <SortBy />
+        <Genres with_genres={with_genres} onChangeFilter={onChangeFilter} />
       </form>
     );
   }
 }
+
+export default AppContextHOC(Filters);

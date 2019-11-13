@@ -24,7 +24,7 @@ class UserMenu extends React.Component {
       body: {
         session_id: this.props.session_id
       }
-    }).then(this.props.onLogout());
+    }).then(this.props.onLogOut());
   };
 
   render() {

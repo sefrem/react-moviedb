@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import AppContextHOC from "../HOC/AppContextHOC";
 
-export default class SortBy extends React.PureComponent {
+class SortBy extends React.PureComponent {
   static propTypes = {
     onChangeFilter: PropTypes.func.isRequired,
     sort_by: PropTypes.string.isRequired
@@ -41,8 +42,7 @@ export default class SortBy extends React.PureComponent {
 
   render() {
     const {
-      primary_release_year,
-      sort_by,
+      filters: { sort_by, primary_release_year },
       onChangeFilter,
       options
     } = this.props;
@@ -57,7 +57,7 @@ export default class SortBy extends React.PureComponent {
             name="sort_by"
             id="sort_by"
             value={sort_by}
-            onChange={onChangeFilter}
+            onChange={e => onChangeFilter(e)}
           >
             {options.map(option => {
               return (
@@ -86,3 +86,5 @@ export default class SortBy extends React.PureComponent {
     );
   }
 }
+
+export default AppContextHOC(SortBy);

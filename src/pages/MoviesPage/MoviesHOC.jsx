@@ -2,20 +2,24 @@ import React from "react";
 import CallApi from "../../api/api";
 import _ from "lodash";
 import Loader from "../../components/UI/Loader";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import {
+  actionCreatorOnChangePagination,
+  actionCreatorUpdateMovies,
+  actionCreatorToggleLoader
+} from "../../actions/actions";
 
-export default Component =>
-  class MoviesHOC extends React.Component {
-    constructor() {
-      super();
-
-      this.state = {
-        isLoading: true,
-        movies: []
-      };
-    }
-
-    getMovies = (filters, page) => {
-      const { sort_by, primary_release_year, with_genres } = filters;
+function MoviesHOC(Component) {
+  return class extends React.Component {
+    componentDidMount() {
+      const {
+        filters: { sort_by, primary_release_year, with_genres },
+        page,
+        toggleLoader,
+        updateMovies,
+        onChangePagination
+      } = this.props;
       const queryStringParams = {
         language: "en-EN",
         sort_by: sort_by,
@@ -25,46 +29,58 @@ export default Component =>
       if (with_genres.length > 0) {
         queryStringParams.with_genres = with_genres.join(",");
       }
-      this.setState({
-        isLoading: true
-      });
-      CallApi.get("/discover/movie", {
+      toggleLoader();
+      onChangePagination({ name: "page", value: 1 });
+      return CallApi.get("/discover/movie", {
         params: queryStringParams
       }).then(data => {
-        this.setState({
-          movies: data.results,
-          isLoading: false
-        });
-        this.props.onChangePagination({
-          name: "totalPages",
-          value: data.total_pages
-        });
+        updateMovies(data.results);
+        toggleLoader();
       });
-    };
-
-    componentDidMount() {
-      const { filters, page } = this.props;
-      this.getMovies(filters, page);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(state) {
       const {
         filters,
+        filters: { sort_by, primary_release_year, with_genres },
         pagination: { page },
-        onChangePagination
+        toggleLoader,
+        onChangePagination,
+        updateMovies
       } = this.props;
+      const queryStringParams = {
+        language: "en-EN",
+        sort_by: sort_by,
+        page: page,
+        primary_release_year: primary_release_year
+      };
+      if (with_genres.length > 0) {
+        queryStringParams.with_genres = with_genres.join(",");
+      }
 
-      if (!_.isEqual(filters, prevProps.filters)) {
+      if (!_.isEqual(filters, state.filters)) {
+        toggleLoader();
         onChangePagination({ name: "page", value: 1 });
-        this.getMovies(filters, 1);
-      } else if (page !== prevProps.pagination.page) {
-        this.getMovies(filters, page);
+        return CallApi.get("/discover/movie", {
+          params: queryStringParams
+        }).then(data => {
+          updateMovies(data.results);
+          toggleLoader();
+          onChangePagination({ name: "totalPages", value: data.total_pages });
+        });
+      } else if (page !== state.pagination.page) {
+        toggleLoader();
+        return CallApi.get("/discover/movie", {
+          params: queryStringParams
+        }).then(data => {
+          updateMovies(data.results);
+          toggleLoader();
+        });
       }
     }
 
     render() {
-      const { movies, isLoading } = this.state;
-
+      const { movies, isLoading } = this.props;
       return (
         <div>
           {isLoading ? (
@@ -76,3 +92,33 @@ export default Component =>
       );
     }
   };
+}
+
+const mapStateToProps = state => {
+  return {
+    state: state,
+    filters: state.filters,
+    pagination: state.pagination,
+    movies: state.movies,
+    isLoading: state.isLoading
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onChangePagination: ({ name, value }) =>
+      dispatch(actionCreatorOnChangePagination(name, value)),
+    updateMovies: movies => dispatch(actionCreatorUpdateMovies(movies)),
+    toggleLoader: () => dispatch(actionCreatorToggleLoader())
+  };
+};
+
+const composedHOC = compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  MoviesHOC
+);
+
+export default composedHOC;

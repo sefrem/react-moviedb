@@ -88,11 +88,10 @@ class LoginForm extends React.Component {
           session_id: authentication.session_id
         }
       });
-      this.props.updateSessionId(authentication.session_id);
+      this.props.updateAuth(session, authentication.session_id);
       this.setState({
         submitting: false
       });
-      this.props.updateUser(session);
     } catch (error) {
       this.setState({
         submitting: false,

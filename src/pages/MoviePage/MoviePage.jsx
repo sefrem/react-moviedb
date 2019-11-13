@@ -7,24 +7,28 @@ import MovieVideos from "./MovieVideos";
 import MovieCredits from "./MovieCredits";
 import MovieHeader from "./MovieHeader";
 import MovieNavigation from "./MovieNavigation";
+import AppContextHOC from "../../components/HOC/AppContextHOC";
 
-export default class MoviePage extends React.Component {
+class MoviePage extends React.Component {
   state = {
-    isLoading: true,
     movie: {}
   };
 
   componentDidMount() {
-    CallApi.get(`/movie/${this.props.match.params.id}`).then(response =>
+    const { toggleLoader } = this.props;
+    toggleLoader();
+    CallApi.get(`/movie/${this.props.match.params.id}`).then(response => {
       this.setState({
-        movie: response,
-        isLoading: false
-      })
-    );
+        movie: response
+      });
+      toggleLoader();
+    });
   }
 
   render() {
-    const { movie, isLoading } = this.state;
+    const { isLoading } = this.props;
+    const { movie } = this.state;
+    console.log("render");
     return (
       <div>
         {isLoading ? (
@@ -51,3 +55,5 @@ export default class MoviePage extends React.Component {
     );
   }
 }
+
+export default AppContextHOC(MoviePage);

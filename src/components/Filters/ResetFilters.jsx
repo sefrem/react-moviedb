@@ -1,6 +1,7 @@
 import React from "react";
+import AppContextHOC from "../HOC/AppContextHOC";
 
-export default class ResetFilters extends React.Component {
+class ResetFilters extends React.Component {
   render() {
     return (
       <div>
@@ -16,3 +17,5 @@ export default class ResetFilters extends React.Component {
     );
   }
 }
+
+export default AppContextHOC(ResetFilters);

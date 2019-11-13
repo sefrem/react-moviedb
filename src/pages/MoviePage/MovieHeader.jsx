@@ -13,6 +13,7 @@ class MovieHeader extends React.Component {
       release_date,
       vote_average
     } = this.props.movie;
+    const { movie } = this.props;
     const release_year = `${release_date}`.split("-")[0];
     return (
       <div className="row mt-4">
@@ -23,8 +24,8 @@ class MovieHeader extends React.Component {
           <h5 className="title mb-4">
             {original_title} ({release_year})
           </h5>
-          <Like movie={this.props.movie} />
-          <Bookmark movie={this.props.movie} />
+          <Like movie={movie} />
+          <Bookmark movie={movie} />
           <h6 className="">Rating {vote_average}</h6>
           <p className="mb-4">{overview}</p>
         </div>

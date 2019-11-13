@@ -61,7 +61,6 @@ export default class MovieDetails extends React.Component {
         <tbody>
           {details
             .filter(item => {
-              console.log(typeof item.data);
               if (typeof item.data === "object") {
                 return !_.isEmpty(item.data);
               }

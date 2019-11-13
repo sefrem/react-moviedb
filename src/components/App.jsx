@@ -1,83 +1,70 @@
 import React from "react";
 import Header from "./Header/Header";
-import Cookies from "universal-cookie";
 import CallApi from "../api/api";
 import MoviesPage from "../pages/MoviesPage/MoviesPage";
 import MoviePage from "../pages/MoviePage/MoviePage";
 import { BrowserRouter, Route } from "react-router-dom";
+import {
+  actionCreatorUpdateAuth,
+  actionCreatorLogOut,
+  actionCreatorToggleModal,
+  actionCreatorOnChangeFilter,
+  actionCreatorOnChangePagination,
+  actionCreatorResetFilters,
+  actionCreatorToggleLoader
+} from "../actions/actions";
+import { connect } from "react-redux";
 
-const cookies = new Cookies();
 export const AppContext = React.createContext();
 
-export default class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      session_id: null,
-      user: null,
-      showModal: false
-    };
-  }
-
-  updateSessionId = session_id => {
-    cookies.set("session_id", session_id, {
-      path: "/",
-      maxAge: 2592000
-    });
-    this.setState({
-      session_id
-    });
-  };
-
-  updateUser = user => {
-    this.setState({
-      user
-    });
-  };
-
-  onLogout = () => {
-    cookies.remove("session_id");
-    this.setState({
-      session_id: null,
-      user: null
-    });
-  };
-
-  toggleModal = () => {
-    this.setState(prevState => ({
-      showModal: !prevState.showModal
-    }));
-  };
-
+class App extends React.Component {
   componentDidMount() {
-    const session_id = cookies.get("session_id");
+    const { session_id } = this.props;
     if (session_id) {
       return CallApi.get("/account", {
         params: {
           session_id
         }
       }).then(user => {
-        this.updateUser(user);
-        this.updateSessionId(session_id);
+        this.props.updateAuth(user, session_id);
       });
     }
   }
 
   render() {
-    const { user, session_id, showModal } = this.state;
+    const {
+      user,
+      session_id,
+      updateAuth,
+      onLogOut,
+      showModal,
+      toggleModal,
+      onChangeFilter,
+      filters,
+      pagination,
+      onChangePagination,
+      resetFilters,
+      toggleLoader,
+      isLoading
+    } = this.props;
 
     return (
       <BrowserRouter>
         <AppContext.Provider
           value={{
-            user: user,
-            updateUser: this.updateUser,
-            updateSessionId: this.updateSessionId,
-            onLogout: this.onLogout,
-            session_id: session_id,
-            showModal: showModal,
-            toggleModal: this.toggleModal
+            user,
+            updateAuth,
+            onLogOut,
+            session_id,
+            toggleModal,
+            showModal,
+            onChangeFilter,
+            filters,
+            pagination,
+            onChangePagination,
+            resetFilters,
+            toggleLoader,
+            isLoading
           }}
         >
           <Header user={user} />
@@ -88,3 +75,33 @@ export default class App extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    session_id: state.session_id,
+    showModal: state.showModal,
+    filters: state.filters,
+    pagination: state.pagination,
+    isLoading: state.isLoading
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateAuth: (user, session_id) =>
+      dispatch(actionCreatorUpdateAuth({ user, session_id })),
+    onLogOut: () => dispatch(actionCreatorLogOut()),
+    toggleModal: () => dispatch(actionCreatorToggleModal()),
+    onChangeFilter: e => dispatch(actionCreatorOnChangeFilter(e)),
+    onChangePagination: ({ name, value }) =>
+      dispatch(actionCreatorOnChangePagination(name, value)),
+    resetFilters: () => dispatch(actionCreatorResetFilters()),
+    toggleLoader: () => dispatch(actionCreatorToggleLoader())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

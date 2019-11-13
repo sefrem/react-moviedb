@@ -3,6 +3,7 @@ import { withRouter } from "react-router";
 import CallApi from "../../api/api";
 import Loader from "../../components/UI/Loader";
 import MovieImage from "../../components/UI/MovieImage";
+import AppContextHOC from "../../components/HOC/AppContextHOC";
 
 class MovieCredits extends React.Component {
   state = {
@@ -11,11 +12,13 @@ class MovieCredits extends React.Component {
   };
 
   componentDidMount() {
-    CallApi.get(`/movie/${this.props.match.params.id}/credits`).then(response =>
-      this.setState({
-        credits: response.cast,
-        isLoading: false
-      })
+    CallApi.get(`/movie/${this.props.match.params.id}/credits`).then(
+      response => {
+        this.setState({
+          credits: response.cast,
+          isLoading: false
+        });
+      }
     );
   }
 
@@ -40,4 +43,4 @@ class MovieCredits extends React.Component {
   }
 }
 
-export default withRouter(MovieCredits);
+export default withRouter(AppContextHOC(MovieCredits));
