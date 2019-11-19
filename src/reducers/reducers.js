@@ -73,7 +73,7 @@ const reducerApp = (state = initialState, action) => {
         filters: initialState.filters,
         pagination: initialState.pagination
       };
-    case "UPDATE_MOVIES":
+    case "GET_MOVIES":
       return {
         ...state,
         movies: action.movies

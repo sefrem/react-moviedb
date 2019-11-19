@@ -38,9 +38,9 @@ export const actionCreatorUpdateAuth = payload => {
     }
   }
   
-  export const actionCreatorUpdateMovies = movies => {
+  export const actionCreatorGetMovies = movies => {
     return {
-        type: "UPDATE_MOVIES",
+        type: "GET_MOVIES",
         movies
     }
   }

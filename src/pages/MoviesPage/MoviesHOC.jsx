@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import {
   actionCreatorOnChangePagination,
-  actionCreatorUpdateMovies,
+  actionCreatorGetMovies,
   actionCreatorToggleLoader
 } from "../../actions/actions";
 
@@ -17,8 +17,9 @@ function MoviesHOC(Component) {
         filters: { sort_by, primary_release_year, with_genres },
         page,
         toggleLoader,
-        updateMovies,
-        onChangePagination
+        getMovies,
+        onChangePagination,
+        pagination,
       } = this.props;
       const queryStringParams = {
         language: "en-EN",
@@ -30,11 +31,11 @@ function MoviesHOC(Component) {
         queryStringParams.with_genres = with_genres.join(",");
       }
       toggleLoader();
-      onChangePagination({ name: "page", value: 1 });
+      onChangePagination({ name: "page", value: `${pagination.page}`});
       return CallApi.get("/discover/movie", {
         params: queryStringParams
       }).then(data => {
-        updateMovies(data.results);
+        getMovies(data.results);
         toggleLoader();
       });
     }
@@ -46,7 +47,7 @@ function MoviesHOC(Component) {
         pagination: { page },
         toggleLoader,
         onChangePagination,
-        updateMovies
+        getMovies
       } = this.props;
       const queryStringParams = {
         language: "en-EN",
@@ -64,7 +65,7 @@ function MoviesHOC(Component) {
         return CallApi.get("/discover/movie", {
           params: queryStringParams
         }).then(data => {
-          updateMovies(data.results);
+          getMovies(data.results);
           toggleLoader();
           onChangePagination({ name: "totalPages", value: data.total_pages });
         });
@@ -73,7 +74,7 @@ function MoviesHOC(Component) {
         return CallApi.get("/discover/movie", {
           params: queryStringParams
         }).then(data => {
-          updateMovies(data.results);
+          getMovies(data.results);
           toggleLoader();
         });
       }
@@ -108,7 +109,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onChangePagination: ({ name, value }) =>
       dispatch(actionCreatorOnChangePagination(name, value)),
-    updateMovies: movies => dispatch(actionCreatorUpdateMovies(movies)),
+    getMovies: movies => dispatch(actionCreatorGetMovies(movies)),
     toggleLoader: () => dispatch(actionCreatorToggleLoader())
   };
 };
