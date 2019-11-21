@@ -37,6 +37,12 @@ export const actionCreatorUpdateAuth = payload => {
         type: "RESET_FILTERS"
     }
   }
+
+  export const actionCreatorResetPagination = () => {
+    return {
+      type: "RESET_PAGINATION"
+    }
+  }
   
   export const actionCreatorGetMovies = movies => {
     return {

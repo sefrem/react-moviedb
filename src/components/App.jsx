@@ -11,6 +11,7 @@ import {
   actionCreatorOnChangeFilter,
   actionCreatorOnChangePagination,
   actionCreatorResetFilters,
+  actionCreatorResetPagination,
   actionCreatorToggleLoader,
   actionCreatorToggleLoaderVideos,
   actionCreatorToggleLoaderCredits
@@ -88,8 +89,8 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
-    session_id: state.session_id,
+    user: state.sessionInfo.user,
+    session_id: state.sessionInfo.session_id,
     showModal: state.showModal,
     filters: state.filters,
     pagination: state.pagination,
@@ -108,7 +109,10 @@ const mapDispatchToProps = dispatch => {
     onChangeFilter: e => dispatch(actionCreatorOnChangeFilter(e)),
     onChangePagination: ({ name, value }) =>
       dispatch(actionCreatorOnChangePagination(name, value)),
-    resetFilters: () => dispatch(actionCreatorResetFilters()),
+    resetFilters: () => {
+      dispatch(actionCreatorResetFilters())
+      dispatch(actionCreatorResetPagination())
+    },
     toggleLoader: () => dispatch(actionCreatorToggleLoader()),
     toggleLoaderVideos: () => dispatch(actionCreatorToggleLoaderVideos()),
     toggleLoaderCredits: () => dispatch(actionCreatorToggleLoaderCredits())

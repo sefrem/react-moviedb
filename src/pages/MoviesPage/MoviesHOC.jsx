@@ -96,7 +96,6 @@ function MoviesHOC(Component) {
 
 const mapStateToProps = state => {
   return {
-    state: state,
     filters: state.filters,
     pagination: state.pagination,
     movies: state.movies,
