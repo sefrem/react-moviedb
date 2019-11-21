@@ -15,11 +15,10 @@ function MoviesHOC(Component) {
     componentDidMount() {
       const {
         filters: { sort_by, primary_release_year, with_genres },
-        page,
         toggleLoader,
         getMovies,
         onChangePagination,
-        pagination,
+        pagination : { page}
       } = this.props;
       const queryStringParams = {
         language: "en-EN",
@@ -31,7 +30,7 @@ function MoviesHOC(Component) {
         queryStringParams.with_genres = with_genres.join(",");
       }
       toggleLoader();
-      onChangePagination({ name: "page", value: `${pagination.page}`});
+      onChangePagination({ name: "page", value: page});
       return CallApi.get("/discover/movie", {
         params: queryStringParams
       }).then(data => {
@@ -81,9 +80,9 @@ function MoviesHOC(Component) {
     }
 
     render() {
-      const { movies, isLoading } = this.props;
+      const { movies, isLoading} = this.props;
       return (
-        <div>
+        <div className="container">
           {isLoading ? (
             <Loader />
           ) : (
@@ -101,7 +100,7 @@ const mapStateToProps = state => {
     filters: state.filters,
     pagination: state.pagination,
     movies: state.movies,
-    isLoading: state.isLoading
+    isLoading: state.loader.general
   };
 };
 

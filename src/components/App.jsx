@@ -93,9 +93,9 @@ const mapStateToProps = state => {
     showModal: state.showModal,
     filters: state.filters,
     pagination: state.pagination,
-    isLoading: state.isLoading,
-    isLoadingVideos: state.videos.isLoading,
-    isLoadingCredits: state.credits.isLoading
+    isLoading: state.loader.general,
+    isLoadingVideos: state.loader.videos,
+    isLoadingCredits: state.loader.credits
   };
 };
 
