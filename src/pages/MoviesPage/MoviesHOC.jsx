@@ -18,7 +18,7 @@ function MoviesHOC(Component) {
         toggleLoader,
         getMovies,
         onChangePagination,
-        pagination : { page}
+        pagination: { page }
       } = this.props;
       const queryStringParams = {
         language: "en-EN",
@@ -30,7 +30,7 @@ function MoviesHOC(Component) {
         queryStringParams.with_genres = with_genres.join(",");
       }
       toggleLoader();
-      onChangePagination({ name: "page", value: page});
+      onChangePagination({ name: "page", value: page });
       return CallApi.get("/discover/movie", {
         params: queryStringParams
       }).then(data => {
@@ -80,7 +80,7 @@ function MoviesHOC(Component) {
     }
 
     render() {
-      const { movies, isLoading} = this.props;
+      const { movies, isLoading } = this.props;
       return (
         <div className="container">
           {isLoading ? (

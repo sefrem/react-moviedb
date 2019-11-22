@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "./Header/Header";
-import CallApi from "../api/api";
 import MoviesPage from "../pages/MoviesPage/MoviesPage";
 import MoviePage from "../pages/MoviePage/MoviePage";
 import { BrowserRouter, Route } from "react-router-dom";
@@ -14,7 +13,8 @@ import {
   actionCreatorResetPagination,
   actionCreatorToggleLoader,
   actionCreatorToggleLoaderVideos,
-  actionCreatorToggleLoaderCredits
+  actionCreatorToggleLoaderCredits,
+  actionUpdateLogin
 } from "../actions/actions";
 import { connect } from "react-redux";
 
@@ -22,16 +22,7 @@ export const AppContext = React.createContext();
 
 class App extends React.Component {
   componentDidMount() {
-    const { session_id } = this.props;
-    if (session_id) {
-      return CallApi.get("/account", {
-        params: {
-          session_id
-        }
-      }).then(user => {
-        this.props.updateAuth(user, session_id);
-      });
-    }
+    this.props.updateLogin();
   }
 
   render() {
@@ -102,6 +93,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    updateLogin: () => dispatch(actionUpdateLogin()),
     updateAuth: (user, session_id) =>
       dispatch(actionCreatorUpdateAuth({ user, session_id })),
     onLogOut: () => dispatch(actionCreatorLogOut()),
@@ -110,8 +102,8 @@ const mapDispatchToProps = dispatch => {
     onChangePagination: ({ name, value }) =>
       dispatch(actionCreatorOnChangePagination(name, value)),
     resetFilters: () => {
-      dispatch(actionCreatorResetFilters())
-      dispatch(actionCreatorResetPagination())
+      dispatch(actionCreatorResetFilters());
+      dispatch(actionCreatorResetPagination());
     },
     toggleLoader: () => dispatch(actionCreatorToggleLoader()),
     toggleLoaderVideos: () => dispatch(actionCreatorToggleLoaderVideos()),

@@ -4,7 +4,7 @@ import sessionInfo from "./sessionInfo";
 import showModal from "./showModal";
 import movies from "./movies";
 import filters from "./filters";
-import pagination from "./pagination"
+import pagination from "./pagination";
 
 const reducerApp = combineReducers({
   sessionInfo,
@@ -13,6 +13,6 @@ const reducerApp = combineReducers({
   movies,
   filters,
   pagination
-})
+});
 
 export default reducerApp;
