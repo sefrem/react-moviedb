@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import AppContextHOC from "../HOC/AppContextHOC";
+import { connect } from "react-redux";
+import { actionCreatorOnChangeFilter } from "../../actions/actions";
 
 class SortBy extends React.PureComponent {
   static propTypes = {
@@ -87,4 +88,19 @@ class SortBy extends React.PureComponent {
   }
 }
 
-export default AppContextHOC(SortBy);
+const mapStateToProps = state => {
+  return {
+    filters: state.filters
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onChangeFilter: e => dispatch(actionCreatorOnChangeFilter(e))
+  }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+    )(SortBy);

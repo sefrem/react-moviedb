@@ -1,11 +1,10 @@
 import React from "react";
 import Like from "../../components/UI/Like";
 import Bookmark from "../../components/UI/Bookmark";
-import AppContextHOC from "../../components/HOC/AppContextHOC";
 import { Link } from "react-router-dom";
 import MovieImage from "../../components/UI/MovieImage";
 
-class MovieItem extends React.Component {
+export default class MovieItem extends React.Component {
   render() {
     const { movie } = this.props;
 
@@ -27,4 +26,3 @@ class MovieItem extends React.Component {
   }
 }
 
-export default AppContextHOC(MovieItem);

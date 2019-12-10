@@ -1,6 +1,7 @@
 import React from "react";
 import ResetFilters from "./ResetFilters";
-import AppContextHOC from "../HOC/AppContextHOC";
+import { connect } from "react-redux";
+import { actionCreatorOnChangePagination } from "../../actions/actions"
 
 class Pagination extends React.Component {
   handleClick = value => () =>
@@ -44,4 +45,20 @@ class Pagination extends React.Component {
   }
 }
 
-export default AppContextHOC(Pagination);
+const mapStateToProps = state => {
+  return {
+    pagination: state.pagination,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onChangePagination: ({ name, value }) =>
+      dispatch(actionCreatorOnChangePagination(name, value))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Pagination);

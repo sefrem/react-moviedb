@@ -1,5 +1,7 @@
 import React from "react";
-import AppContextHOC from "../HOC/AppContextHOC";
+import { connect } from "react-redux";
+import { actionCreatorResetFilters,
+  actionCreatorResetPagination } from "../../actions/actions";
 
 class ResetFilters extends React.Component {
   render() {
@@ -18,4 +20,21 @@ class ResetFilters extends React.Component {
   }
 }
 
-export default AppContextHOC(ResetFilters);
+const mapStateToProps = state => {
+  return {
+    
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    resetFilters: () => {
+    dispatch(actionCreatorResetFilters());
+    dispatch(actionCreatorResetPagination());
+  }
+}}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ResetFilters);

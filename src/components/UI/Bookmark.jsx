@@ -1,6 +1,7 @@
 import React from "react";
 import CallApi from "../../api/api";
-import AppContext from "../HOC/AppContextHOC";
+import { connect } from "react-redux";
+import { actionCreatorToggleModal } from "../../actions/actions";
 
 class Bookmark extends React.Component {
   state = {
@@ -44,4 +45,19 @@ class Bookmark extends React.Component {
   }
 }
 
-export default AppContext(Bookmark);
+const mapStateToProps = state => {
+  return {
+    session_id: state.sessionInfo.session_id
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleModal: () => dispatch(actionCreatorToggleModal())
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Bookmark);

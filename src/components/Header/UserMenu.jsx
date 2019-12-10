@@ -1,5 +1,5 @@
 import React from "react";
-import AppContextHOC from "../HOC/AppContextHOC";
+import {connect} from "react-redux";
 import {
   Dropdown,
   DropdownToggle,
@@ -7,6 +7,7 @@ import {
   DropdownItem
 } from "reactstrap";
 import CallApi from "../../api/api";
+import { actionCreatorLogOut } from "../../actions/actions"
 
 class UserMenu extends React.Component {
   state = {
@@ -53,4 +54,20 @@ class UserMenu extends React.Component {
   }
 }
 
-export default AppContextHOC(UserMenu);
+const mapStateToProps = state => {
+  return {
+    user: state.sessionInfo.user,
+    session_id: state.sessionInfo.session_id
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogOut: () => dispatch(actionCreatorLogOut())
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+  )(UserMenu);

@@ -1,8 +1,11 @@
 import React from "react";
 import CallApi from "../../api/api";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { actionCreatorOnChangeFilter } from "../../actions/actions";
 
-export default Component =>
-  class GenresHOC extends React.PureComponent {
+function GenresHOC(Component) {
+  return class extends React.PureComponent {
     constructor() {
       super();
       this.state = {
@@ -49,3 +52,26 @@ export default Component =>
       );
     }
   };
+}
+
+const mapStateToProps = state => {
+  return {
+    with_genres: state.filters.with_genres
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onChangeFilter: e => dispatch(actionCreatorOnChangeFilter(e))
+  }
+}
+
+const composedHOC = compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  GenresHOC
+);
+
+export default composedHOC;

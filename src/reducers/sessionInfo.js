@@ -19,7 +19,6 @@ const sessionInfo = (state = initialState, action) => {
 };
 
 const updateAuth = (state, action) => {
-  console.log(action);
   cookies.set("session_id", action.payload.session_id, {
     path: "/",
     maxAge: 2592000

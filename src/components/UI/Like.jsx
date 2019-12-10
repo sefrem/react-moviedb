@@ -1,7 +1,8 @@
 import React from "react";
 import CallApi from "../../api/api";
 import "../../../node_modules/material-design-icons/iconfont/material-icons.css";
-import AppContext from "../HOC/AppContextHOC";
+import { connect } from "react-redux";
+import { actionCreatorToggleModal } from "../../actions/actions";
 
 class Like extends React.Component {
   state = {
@@ -44,4 +45,20 @@ class Like extends React.Component {
     );
   }
 }
-export default AppContext(Like);
+
+const mapStateToProps = state => {
+  return {
+    session_id: state.sessionInfo.session_id
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleModal: () => dispatch(actionCreatorToggleModal())
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Like);

@@ -7,7 +7,8 @@ import MovieVideos from "./MovieVideos";
 import MovieCredits from "./MovieCredits";
 import MovieHeader from "./MovieHeader";
 import MovieNavigation from "./MovieNavigation";
-import AppContextHOC from "../../components/HOC/AppContextHOC";
+import { connect } from "react-redux";
+import { actionCreatorToggleLoader } from "../../actions/actions";
 
 class MoviePage extends React.Component {
   state = {
@@ -55,4 +56,19 @@ class MoviePage extends React.Component {
   }
 }
 
-export default AppContextHOC(MoviePage);
+const mapStateToProps = state => {
+  return {
+    isLoading: state.loader.general
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleLoader: () => dispatch(actionCreatorToggleLoader())
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MoviePage);

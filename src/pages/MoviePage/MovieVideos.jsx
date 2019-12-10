@@ -2,7 +2,8 @@ import React from "react";
 import { withRouter } from "react-router";
 import CallApi from "../../api/api";
 import Loader from "../../components/UI/Loader";
-import AppContextProvider from "../../components/HOC/AppContextHOC"
+import { connect } from "react-redux";
+import { actionCreatorToggleLoaderVideos } from "../../actions/actions"
 
 class MovieVideos extends React.Component {
   state = {
@@ -44,4 +45,19 @@ class MovieVideos extends React.Component {
   }
 }
 
-export default withRouter(AppContextProvider(MovieVideos));
+const mapStateToProps = state => {
+  return {
+    isLoadingVideos: state.loader.videos
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleLoaderVideos: () => dispatch(actionCreatorToggleLoaderVideos())
+  };
+};
+
+export default withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps
+  )(MovieVideos));

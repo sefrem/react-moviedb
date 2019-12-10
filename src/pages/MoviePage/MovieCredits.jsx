@@ -3,7 +3,8 @@ import { withRouter } from "react-router";
 import CallApi from "../../api/api";
 import Loader from "../../components/UI/Loader";
 import MovieImage from "../../components/UI/MovieImage";
-import AppContextHOC from "../../components/HOC/AppContextHOC";
+import { connect } from "react-redux";
+import { actionCreatorToggleLoaderCredits } from "../../actions/actions"
 
 class MovieCredits extends React.Component {
   state = {
@@ -45,4 +46,19 @@ class MovieCredits extends React.Component {
   }
 }
 
-export default withRouter(AppContextHOC(MovieCredits));
+const mapStateToProps = state => {
+  return {
+    isLoadingCredits: state.loader.credits
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleLoaderCredits: () => dispatch(actionCreatorToggleLoaderCredits())
+  };
+};
+
+export default withRouter(connect(
+                mapStateToProps,
+                mapDispatchToProps
+                )(MovieCredits));

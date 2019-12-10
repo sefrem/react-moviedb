@@ -1,8 +1,9 @@
 import React from "react";
 import Login from "./Login";
 import UserMenu from "./UserMenu";
+import { connect } from "react-redux";
 
-export default class Header extends React.Component {
+class Header extends React.Component {
   render() {
     return (
       <nav className="navbar navbar-dark bg-primary">
@@ -20,3 +21,13 @@ export default class Header extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    user: state.sessionInfo.user
+  }
+}
+
+export default connect (
+  mapStateToProps
+)(Header);

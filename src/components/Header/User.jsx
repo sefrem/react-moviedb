@@ -1,5 +1,5 @@
 import React from "react";
-import AppContextHOC from "../HOC/AppContextHOC";
+import { connect } from "react-redux";
 
 class User extends React.Component {
   render() {
@@ -18,4 +18,12 @@ class User extends React.Component {
   }
 }
 
-export default AppContextHOC(User);
+const mapStateToProps = state => {
+  return {
+    user: state.sessionInfo.user,
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  )(User);
