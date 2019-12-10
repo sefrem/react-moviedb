@@ -7,26 +7,20 @@ const initialState = {
 const filters = (state = initialState, action) => {
   switch (action.type) {
     case "CHANGE_FILTER":
-      return changeFilter(state, action);
+        return {
+          ...state,
+          [action.payload.target.name]: action.payload.target.value
+        };
     case "RESET_FILTERS":
-      return resetFilters(state);
+        return {
+          ...state,
+          ...initialState
+        };
     default:
       return state;
   }
 };
 
-const changeFilter = (state, action) => {
-  return {
-    ...state,
-    [action.e.target.name]: action.e.target.value
-  };
-};
 
-const resetFilters = state => {
-  return {
-    ...state,
-    ...initialState
-  };
-};
 
 export default filters;

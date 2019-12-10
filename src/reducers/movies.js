@@ -1,13 +1,27 @@
-const movies = (state = [], action) => {
+const initialState = {
+  movies: []
+}
+const movies = (state = initialState, action) => {
   switch (action.type) {
     case "GET_MOVIES":
-      return getMovies(state, action);
+        return {
+          ...state,
+          movies: action.payload.slice()
+        }
     default:
       return state;
   }
 };
-const getMovies = (state, action) => {
-  return (state = action.movies.slice());
-};
 
 export default movies;
+
+
+
+// const movies = (state = [], action) => {
+//   switch (action.type) {
+//     case "GET_MOVIES":
+//         return (state = action.payload.slice())
+//     default:
+//       return state;
+//   }
+// };

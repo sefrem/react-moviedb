@@ -5,6 +5,7 @@ import MoviePage from "../pages/MoviePage/MoviePage";
 import { BrowserRouter, Route } from "react-router-dom";
 import { actionUpdateLogin } from "../actions/actions";
 import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
 
 class App extends React.Component {
   
@@ -32,7 +33,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateLogin: (session_id) => dispatch(actionUpdateLogin(session_id))
+    updateLogin: bindActionCreators(actionUpdateLogin, dispatch)
   };
 };
 

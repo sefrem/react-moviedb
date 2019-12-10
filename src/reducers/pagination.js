@@ -6,27 +6,20 @@ const initialState = {
   const pagination = (state = initialState, action) => {
     switch (action.type) {
       case "CHANGE_PAGINATION":
-        return changePagination(state, action);
+          return {
+            ...state,
+            [action.payload.name]: action.payload.value
+          };
       case "RESET_PAGINATION":
-        return resetPagination(state);
+          return {
+            ...state,
+            ...initialState
+          };
       default:
         return state;
     }
   };
   
-  const changePagination = (state, action) => {
-    return {
-      ...state,
-      [action.name]: action.value
-    };
-  };
-  
-  const resetPagination = state => {
-    return {
-      ...state,
-      ...initialState
-    };
-  };
   
   export default pagination;
   

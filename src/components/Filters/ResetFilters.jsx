@@ -20,12 +20,6 @@ class ResetFilters extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    
-  }
-}
-
 const mapDispatchToProps = dispatch => {
   return {
     resetFilters: () => {
@@ -35,6 +29,6 @@ const mapDispatchToProps = dispatch => {
 }}
 
 export default connect(
-  mapStateToProps,
+  undefined,
   mapDispatchToProps
 )(ResetFilters);

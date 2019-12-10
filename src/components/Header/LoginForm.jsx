@@ -2,7 +2,8 @@ import React from "react";
 import CallApi from "../../api/api";
 import Field from "../UI/Field";
 import { connect } from "react-redux";
-import { actionCreatorUpdateAuth } from "../../actions/actions"
+import { actionCreatorUpdateAuth } from "../../actions/actions";
+import { bindActionCreators } from 'redux';
 
 class LoginForm extends React.Component {
   state = {
@@ -84,12 +85,13 @@ class LoginForm extends React.Component {
           request_token: validation.request_token
         }
       });
-      let session = await CallApi.get("/account", {
+      let user = await CallApi.get("/account", {
         params: {
           session_id: authentication.session_id
         }
       });
-      this.props.updateAuth(session, authentication.session_id);
+      console.log("session",user, authentication.session_id );
+      this.props.updateAuth({user: user, session_id: authentication.session_id});
       this.setState({
         submitting: false
       });
@@ -194,8 +196,7 @@ class LoginForm extends React.Component {
 
   const mapDispatchToProps = dispatch => {
     return {
-      updateAuth: (user, session_id) =>
-        dispatch(actionCreatorUpdateAuth({ user, session_id }))
+      updateAuth: bindActionCreators(actionCreatorUpdateAuth, dispatch)
     };
   };
 

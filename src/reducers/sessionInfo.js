@@ -10,43 +10,25 @@ const initialState = {
 const sessionInfo = (state = initialState, action) => {
   switch (action.type) {
     case "UPDATE_AUTH":
-      return (state, action) => {
-          cookies.set("session_id", action.payload.session_id, {
-            path: "/",
-            maxAge: 2592000
-          });
-          return {
-            ...state,
-            user: action.payload.user,
-            session_id: action.payload.session_id
-          };
+     cookies.set("session_id", action.payload.session_id, {
+          path: "/",
+          maxAge: 2592000
+        });
+        return {
+          ...state,
+          user: action.payload.user,
+          session_id: action.payload.session_id
         };
     case "LOGOUT":
-      return logout(state);
+        cookies.remove("session_id");
+        return {
+          ...state,
+          user: null,
+          session_id: null
+        };
     default:
       return state;
   }
-};
-
-const updateAuth = (state, action) => {
-  cookies.set("session_id", action.payload.session_id, {
-    path: "/",
-    maxAge: 2592000
-  });
-  return {
-    ...state,
-    user: action.payload.user,
-    session_id: action.payload.session_id
-  };
-};
-
-const logout = state => {
-  cookies.remove("session_id");
-  return {
-    ...state,
-    user: null,
-    session_id: null
-  };
 };
 
 export default sessionInfo;

@@ -1,4 +1,5 @@
 import CallApi from "../api/api";
+import * as constants from "../constants/constants";
 
 export const actionUpdateLogin = (session_id) => (dispatch) => {
     return CallApi.get("/account", {
@@ -27,18 +28,17 @@ export const actionCreatorToggleModal = () => {
   };
 };
 
-export const actionCreatorOnChangeFilter = e => {
+export const actionCreatorOnChangeFilter = payload => {
   return {
     type: "CHANGE_FILTER",
-    e
+    payload
   };
 };
 
-export const actionCreatorOnChangePagination = (name, value) => {
+export const actionCreatorOnChangePagination = payload => {
   return {
     type: "CHANGE_PAGINATION",
-    name,
-    value
+    payload
   };
 };
 
@@ -54,10 +54,10 @@ export const actionCreatorResetPagination = () => {
   };
 };
 
-export const actionCreatorGetMovies = movies => {
+export const actionCreatorGetMovies = payload => {
   return {
     type: "GET_MOVIES",
-    movies
+    payload
   };
 };
 

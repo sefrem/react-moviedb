@@ -9,6 +9,7 @@ import {
   actionCreatorGetMovies,
   actionCreatorToggleLoader
 } from "../../actions/actions";
+import { bindActionCreators } from 'redux';
 
 function MoviesHOC(Component) {
   return class extends React.Component {
@@ -98,17 +99,16 @@ const mapStateToProps = state => {
   return {
     filters: state.filters,
     pagination: state.pagination,
-    movies: state.movies,
+    movies: state.movies.movies,
     isLoading: state.loader.general
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onChangePagination: ({ name, value }) =>
-      dispatch(actionCreatorOnChangePagination(name, value)),
-    getMovies: movies => dispatch(actionCreatorGetMovies(movies)),
-    toggleLoader: () => dispatch(actionCreatorToggleLoader())
+    onChangePagination: bindActionCreators(actionCreatorOnChangePagination, dispatch),
+    getMovies: bindActionCreators(actionCreatorGetMovies, dispatch),
+    toggleLoader: bindActionCreators(actionCreatorToggleLoader, dispatch)
   };
 };
 
