@@ -1,14 +1,11 @@
 import CallApi from "../api/api";
 
-export const actionUpdateLogin = () => (dispatch, getState) => {
-  const { session_id } = getState().sessionInfo;
-  if (session_id) {
+export const actionUpdateLogin = (session_id) => (dispatch) => {
     return CallApi.get("/account", {
       params: {
         session_id
       }
     }).then(user => dispatch(actionCreatorUpdateAuth({ user, session_id })));
-  }
 };
 
 export const actionCreatorUpdateAuth = payload => {

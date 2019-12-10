@@ -7,8 +7,10 @@ import { actionUpdateLogin } from "../actions/actions";
 import { connect } from "react-redux";
 
 class App extends React.Component {
+  
   componentDidMount() {
-    this.props.updateLogin();
+    const {session_id} = this.props;
+    if(session_id) this.props.updateLogin(session_id);
   }
 
   render() {
@@ -24,12 +26,13 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    session_id: state.sessionInfo.session_id
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateLogin: () => dispatch(actionUpdateLogin())
+    updateLogin: (session_id) => dispatch(actionUpdateLogin(session_id))
   };
 };
 
