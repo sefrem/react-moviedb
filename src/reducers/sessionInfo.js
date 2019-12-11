@@ -1,5 +1,7 @@
 import Cookies from "universal-cookie";
+import * as constants from "../constants/constants";
 
+const { UPDATE_AUTH, LOGOUT } = constants;
 const cookies = new Cookies();
 
 const initialState = {
@@ -9,7 +11,7 @@ const initialState = {
 
 const sessionInfo = (state = initialState, action) => {
   switch (action.type) {
-    case "UPDATE_AUTH":
+    case UPDATE_AUTH:
      cookies.set("session_id", action.payload.session_id, {
           path: "/",
           maxAge: 2592000
@@ -19,7 +21,7 @@ const sessionInfo = (state = initialState, action) => {
           user: action.payload.user,
           session_id: action.payload.session_id
         };
-    case "LOGOUT":
+    case LOGOUT:
         cookies.remove("session_id");
         return {
           ...state,

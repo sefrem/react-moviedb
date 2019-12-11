@@ -1,3 +1,7 @@
+import * as constants from "../constants/constants";
+
+const { TOGGLE_LOADER, TOGGLE_LOADER_VIDEOS, TOGGLE_LOADER_CREDITS } = constants;
+
 const initialState = {
   general: false,
   videos: false,
@@ -6,27 +10,15 @@ const initialState = {
 
 const loader = (state = initialState, action) => {
   switch (action.type) {
-    case "TOGGLE_LOADER":
-      return toggleLoader(state);
-    case "TOGGLE_LOADER_VIDEOS":
-      return toggleLoaderVideos(state);
-    case "TOGGLE_LOADER_CREDITS":
-      return toggleLoaderCredits(state);
+    case TOGGLE_LOADER:
+      return toggleLoaderState(state, "general");
+    case TOGGLE_LOADER_VIDEOS:
+      return toggleLoaderState(state, "videos");
+    case TOGGLE_LOADER_CREDITS:
+      return toggleLoaderState(state, "credits");
     default:
       return state;
   }
-};
-
-const toggleLoader = state => {
-  return toggleLoaderState(state, "general");
-};
-
-const toggleLoaderVideos = state => {
-  return toggleLoaderState(state, "videos");
-};
-
-const toggleLoaderCredits = state => {
-  return toggleLoaderState(state, "credits");
 };
 
 const toggleLoaderState = (state, loaderKey) => {

@@ -90,7 +90,6 @@ class LoginForm extends React.Component {
           session_id: authentication.session_id
         }
       });
-      console.log("session",user, authentication.session_id );
       this.props.updateAuth({user: user, session_id: authentication.session_id});
       this.setState({
         submitting: false
@@ -188,12 +187,6 @@ class LoginForm extends React.Component {
   }
 }
 
-  const mapStateToProps = state => {
-    return {
-
-    }
-  };
-
   const mapDispatchToProps = dispatch => {
     return {
       updateAuth: bindActionCreators(actionCreatorUpdateAuth, dispatch)
@@ -201,6 +194,6 @@ class LoginForm extends React.Component {
   };
 
   export default connect(
-    mapStateToProps,
+    undefined,
     mapDispatchToProps
     )(LoginForm);

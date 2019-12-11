@@ -1,6 +1,20 @@
 import CallApi from "../api/api";
 import * as constants from "../constants/constants";
 
+const {
+  UPDATE_AUTH,
+  LOGOUT,
+  TOGGLE_MODAL,
+  CHANGE_FILTER,
+  CHANGE_PAGINATION,
+  RESET_FILTERS,
+  RESET_PAGINATION,
+  GET_MOVIES,
+  TOGGLE_LOADER,
+  TOGGLE_LOADER_VIDEOS,
+  TOGGLE_LOADER_CREDITS
+} = constants;
+
 export const actionUpdateLogin = (session_id) => (dispatch) => {
     return CallApi.get("/account", {
       params: {
@@ -11,70 +25,70 @@ export const actionUpdateLogin = (session_id) => (dispatch) => {
 
 export const actionCreatorUpdateAuth = payload => {
   return {
-    type: "UPDATE_AUTH",
+    type: UPDATE_AUTH,
     payload
   };
 };
 
 export const actionCreatorLogOut = () => {
   return {
-    type: "LOGOUT"
+    type: LOGOUT
   };
 };
 
 export const actionCreatorToggleModal = () => {
   return {
-    type: "TOGGLE_MODAL"
+    type: TOGGLE_MODAL
   };
 };
 
 export const actionCreatorOnChangeFilter = payload => {
   return {
-    type: "CHANGE_FILTER",
+    type: CHANGE_FILTER,
     payload
   };
 };
 
 export const actionCreatorOnChangePagination = payload => {
   return {
-    type: "CHANGE_PAGINATION",
+    type: CHANGE_PAGINATION,
     payload
   };
 };
 
 export const actionCreatorResetFilters = () => {
   return {
-    type: "RESET_FILTERS"
+    type: RESET_FILTERS
   };
 };
 
 export const actionCreatorResetPagination = () => {
   return {
-    type: "RESET_PAGINATION"
+    type: RESET_PAGINATION
   };
 };
 
 export const actionCreatorGetMovies = payload => {
   return {
-    type: "GET_MOVIES",
+    type: GET_MOVIES,
     payload
   };
 };
 
 export const actionCreatorToggleLoader = () => {
   return {
-    type: "TOGGLE_LOADER"
+    type: TOGGLE_LOADER
   };
 };
 
 export const actionCreatorToggleLoaderVideos = () => {
   return {
-    type: "TOGGLE_LOADER_VIDEOS"
+    type: TOGGLE_LOADER_VIDEOS
   };
 };
 
 export const actionCreatorToggleLoaderCredits = () => {
   return {
-    type: "TOGGLE_LOADER_CREDITS"
+    type: TOGGLE_LOADER_CREDITS
   };
 };
