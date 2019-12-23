@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { actionCreatorOnChangeFilter } from "../../actions/actions";
-import { bindActionCreators } from 'redux';
+import { onChangeFilter } from "../../redux/filters/filters.actions";
 
 class SortBy extends React.PureComponent {
   static propTypes = {
@@ -95,11 +94,9 @@ const mapStateToProps = state => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onChangeFilter: bindActionCreators(actionCreatorOnChangeFilter, dispatch)
-  }
-}
+const mapDispatchToProps = {
+    onChangeFilter
+};
 
 export default connect(
     mapStateToProps,

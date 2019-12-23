@@ -2,8 +2,7 @@ import React from "react";
 import CallApi from "../../api/api";
 import Field from "../UI/Field";
 import { connect } from "react-redux";
-import { actionCreatorUpdateAuth } from "../../actions/actions";
-import { bindActionCreators } from 'redux';
+import { updateAuth } from "../../redux/auth/auth.actions";
 
 class LoginForm extends React.Component {
   state = {
@@ -187,10 +186,8 @@ class LoginForm extends React.Component {
   }
 }
 
-  const mapDispatchToProps = dispatch => {
-    return {
-      updateAuth: bindActionCreators(actionCreatorUpdateAuth, dispatch)
-    };
+  const mapDispatchToProps = {
+      updateAuth
   };
 
   export default connect(

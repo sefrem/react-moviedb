@@ -24,7 +24,7 @@ class Header extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.sessionInfo.user
+    user: state.auth.user
   }
 }
 

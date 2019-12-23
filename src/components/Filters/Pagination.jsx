@@ -1,8 +1,7 @@
 import React from "react";
 import ResetFilters from "./ResetFilters";
 import { connect } from "react-redux";
-import { actionCreatorOnChangePagination } from "../../actions/actions";
-import { bindActionCreators } from 'redux';
+import { onChangePagination } from "../../redux/pagination/pagination.actions";
 
 class Pagination extends React.Component {
   
@@ -53,10 +52,8 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onChangePagination: bindActionCreators(actionCreatorOnChangePagination, dispatch)
-  };
+const mapDispatchToProps = {
+    onChangePagination
 };
 
 export default connect(

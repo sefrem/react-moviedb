@@ -1,15 +1,16 @@
 import Cookies from "universal-cookie";
-import * as constants from "../constants/constants";
+import * as constants from "../../constants/constants";
 
-const { UPDATE_AUTH, LOGOUT } = constants;
+const { UPDATE_AUTH, LOGOUT, TOGGLE_MODAL } = constants;
 const cookies = new Cookies();
 
 const initialState = {
   user: null,
-  session_id: cookies.get("session_id")
+  session_id: cookies.get("session_id"),
+  showModal: false
 };
 
-const sessionInfo = (state = initialState, action) => {
+const auth = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_AUTH:
      cookies.set("session_id", action.payload.session_id, {
@@ -28,9 +29,15 @@ const sessionInfo = (state = initialState, action) => {
           user: null,
           session_id: null
         };
+    case TOGGLE_MODAL:
+      return {
+        ...state,
+        showModal: !state.showModal
+      }
     default:
       return state;
   }
 };
 
-export default sessionInfo;
+export default auth;
+

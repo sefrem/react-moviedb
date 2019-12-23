@@ -8,7 +8,7 @@ import MovieCredits from "./MovieCredits";
 import MovieHeader from "./MovieHeader";
 import MovieNavigation from "./MovieNavigation";
 import { connect } from "react-redux";
-import { actionCreatorToggleLoader } from "../../actions/actions";
+import { toggleLoader } from "../../redux/loader/loader.actions";
 
 class MoviePage extends React.Component {
   state = {
@@ -62,10 +62,8 @@ const mapStateToProps = state => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    toggleLoader: () => dispatch(actionCreatorToggleLoader())
-  }
+const mapDispatchToProps = {
+    toggleLoader
 };
 
 export default connect(

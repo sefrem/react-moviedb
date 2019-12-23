@@ -7,7 +7,7 @@ import {
   DropdownItem
 } from "reactstrap";
 import CallApi from "../../api/api";
-import { actionCreatorLogOut } from "../../actions/actions"
+import { onLogOut } from "../../redux/auth/auth.actions"
 
 class UserMenu extends React.Component {
   state = {
@@ -56,15 +56,14 @@ class UserMenu extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.sessionInfo.user,
-    session_id: state.sessionInfo.session_id
+    user: state.auth.user,
+    session_id: state.auth.session_id
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onLogOut: () => dispatch(actionCreatorLogOut())
-  }
+const mapDispatchToProps = {
+    onLogOut
+  
 }
 
 export default connect(

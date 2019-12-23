@@ -1,7 +1,7 @@
 import React from "react";
 import CallApi from "../../api/api";
 import { connect } from "react-redux";
-import { actionCreatorToggleModal } from "../../actions/actions";
+import { toggleModal } from "../../redux/auth/auth.actions";
 
 class Bookmark extends React.Component {
   state = {
@@ -47,14 +47,12 @@ class Bookmark extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    session_id: state.sessionInfo.session_id
+    session_id: state.auth.session_id
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    toggleModal: () => dispatch(actionCreatorToggleModal())
-  }
+const mapDispatchToProps = {
+    toggleModal
 };
 
 export default connect(

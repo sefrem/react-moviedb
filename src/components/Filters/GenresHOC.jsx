@@ -2,8 +2,7 @@ import React from "react";
 import CallApi from "../../api/api";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { actionCreatorOnChangeFilter } from "../../actions/actions";
-import { bindActionCreators } from 'redux';
+import { onChangeFilter } from "../../redux/filters/filters.actions";
 
 function GenresHOC(Component) {
   return class extends React.PureComponent {
@@ -61,10 +60,8 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onChangeFilter: bindActionCreators(actionCreatorOnChangeFilter, dispatch)
-  }
+const mapDispatchToProps = {
+    onChangeFilter
 }
 
 const composedHOC = compose(

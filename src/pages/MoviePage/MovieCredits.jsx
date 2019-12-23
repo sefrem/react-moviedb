@@ -4,7 +4,7 @@ import CallApi from "../../api/api";
 import Loader from "../../components/UI/Loader";
 import MovieImage from "../../components/UI/MovieImage";
 import { connect } from "react-redux";
-import { actionCreatorToggleLoaderCredits } from "../../actions/actions"
+import { toggleLoaderCredits } from "../../redux/loader/loader.actions";
 
 class MovieCredits extends React.Component {
   state = {
@@ -52,10 +52,8 @@ const mapStateToProps = state => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    toggleLoaderCredits: () => dispatch(actionCreatorToggleLoaderCredits())
-  };
+const mapDispatchToProps = {
+    toggleLoaderCredits
 };
 
 export default withRouter(connect(

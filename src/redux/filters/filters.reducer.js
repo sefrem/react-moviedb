@@ -1,4 +1,4 @@
-import * as constants from "../constants/constants";
+import * as constants from "../../constants/constants";
 
 const { CHANGE_FILTER, RESET_FILTERS } = constants;
 

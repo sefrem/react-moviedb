@@ -4,12 +4,9 @@ import _ from "lodash";
 import Loader from "../../components/UI/Loader";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import {
-  actionCreatorOnChangePagination,
-  actionCreatorGetMovies,
-  actionCreatorToggleLoader
-} from "../../actions/actions";
-import { bindActionCreators } from 'redux';
+import { getMovies } from "../../redux/movies/movies.actions";
+import { toggleLoader } from "../../redux/loader/loader.actions";
+import {  onChangePagination } from "../../redux/pagination/pagination.actions"
 
 function MoviesHOC(Component) {
   return class extends React.Component {
@@ -104,12 +101,10 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onChangePagination: bindActionCreators(actionCreatorOnChangePagination, dispatch),
-    getMovies: bindActionCreators(actionCreatorGetMovies, dispatch),
-    toggleLoader: bindActionCreators(actionCreatorToggleLoader, dispatch)
-  };
+const mapDispatchToProps = {
+    onChangePagination,
+    getMovies, 
+    toggleLoader
 };
 
 const composedHOC = compose(

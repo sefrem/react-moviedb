@@ -3,7 +3,7 @@ import { withRouter } from "react-router";
 import CallApi from "../../api/api";
 import Loader from "../../components/UI/Loader";
 import { connect } from "react-redux";
-import { actionCreatorToggleLoaderVideos } from "../../actions/actions"
+import { toggleLoaderVideos } from "../../redux/loader/loader.actions";
 
 class MovieVideos extends React.Component {
   state = {
@@ -51,10 +51,8 @@ const mapStateToProps = state => {
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    toggleLoaderVideos: () => dispatch(actionCreatorToggleLoaderVideos())
-  };
+const mapDispatchToProps = {
+    toggleLoaderVideos
 };
 
 export default withRouter(connect(

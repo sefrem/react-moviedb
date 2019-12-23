@@ -1,4 +1,4 @@
-import * as constants from "../constants/constants";
+import * as constants from "../../constants/constants";
 
 const { TOGGLE_LOADER, TOGGLE_LOADER_VIDEOS, TOGGLE_LOADER_CREDITS } = constants;
 

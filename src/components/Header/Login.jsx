@@ -2,8 +2,7 @@ import React from "react";
 import { Modal, ModalBody } from "reactstrap";
 import LoginForm from "./LoginForm";
 import { connect } from "react-redux";
-import { actionCreatorToggleModal } from "../../actions/actions";
-import { bindActionCreators } from 'redux';
+import { toggleModal } from "../../redux/auth/auth.actions";
 
 class Login extends React.Component {
   render() {
@@ -29,14 +28,12 @@ class Login extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    showModal: state.showModal
+    showModal: state.auth.showModal
   }
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    toggleModal:bindActionCreators(actionCreatorToggleModal, dispatch)
-  }
+const mapDispatchToProps = {
+    toggleModal
 };
 
 export default connect(

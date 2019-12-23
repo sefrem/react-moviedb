@@ -3,9 +3,8 @@ import Header from "./Header/Header";
 import MoviesPage from "../pages/MoviesPage/MoviesPage";
 import MoviePage from "../pages/MoviePage/MoviePage";
 import { BrowserRouter, Route } from "react-router-dom";
-import { actionUpdateLogin } from "../actions/actions";
+import { updateLogin } from "../redux/auth/auth.actions";
 import { connect } from "react-redux";
-import { bindActionCreators } from 'redux';
 
 class App extends React.Component {
   
@@ -27,14 +26,12 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    session_id: state.sessionInfo.session_id
+    session_id: state.auth.session_id
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updateLogin: bindActionCreators(actionUpdateLogin, dispatch)
-  };
+const mapDispatchToProps = {
+    updateLogin
 };
 
 export default connect(
