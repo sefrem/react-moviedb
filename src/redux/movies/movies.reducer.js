@@ -1,13 +1,11 @@
-import * as constants from "../../constants/constants";
-
-const { GET_MOVIES } = constants;
+import * as types from "./movies.types";
 
 const initialState = {
   movies: []
 }
 const movies = (state = initialState, action) => {
   switch (action.type) {
-    case GET_MOVIES:
+    case types.GET_MOVIES:
         return {
           ...state,
           movies: action.payload.slice()

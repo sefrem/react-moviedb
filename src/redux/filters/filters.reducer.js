@@ -1,6 +1,6 @@
-import * as constants from "../../constants/constants";
+import * as types from "./filters.types";
 
-const { CHANGE_FILTER, RESET_FILTERS } = constants;
+const { CHANGE_FILTER, RESET_FILTERS } = types;
 
 const initialState = {
   sort_by: "popularity.desc",

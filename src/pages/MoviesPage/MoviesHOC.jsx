@@ -4,9 +4,10 @@ import _ from "lodash";
 import Loader from "../../components/UI/Loader";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { getMovies } from "../../redux/movies/movies.actions";
+import { fetchMovies } from "../../redux/movies/movies.actions";
 import { toggleLoader } from "../../redux/loader/loader.actions";
-import {  onChangePagination } from "../../redux/pagination/pagination.actions"
+import {  onChangePagination } from "../../redux/pagination/pagination.actions";
+
 
 function MoviesHOC(Component) {
   return class extends React.Component {
@@ -14,7 +15,7 @@ function MoviesHOC(Component) {
       const {
         filters: { sort_by, primary_release_year, with_genres },
         toggleLoader,
-        getMovies,
+        fetchMovies,
         onChangePagination,
         pagination: { page }
       } = this.props;
@@ -27,14 +28,8 @@ function MoviesHOC(Component) {
       if (with_genres.length > 0) {
         queryStringParams.with_genres = with_genres.join(",");
       }
-      toggleLoader();
       onChangePagination({ name: "page", value: page });
-      return CallApi.get("/discover/movie", {
-        params: queryStringParams
-      }).then(data => {
-        getMovies(data.results);
-        toggleLoader();
-      });
+      fetchMovies(queryStringParams)
     }
 
     componentDidUpdate(state) {
@@ -103,7 +98,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     onChangePagination,
-    getMovies, 
+    fetchMovies, 
     toggleLoader
 };
 

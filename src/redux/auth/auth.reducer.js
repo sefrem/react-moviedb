@@ -1,9 +1,7 @@
-import Cookies from "universal-cookie";
-import * as constants from "../../constants/constants";
+import * as types from "./auth.types";
+import { cookies } from "../../utils/cookies";
 
-const { UPDATE_AUTH, LOGOUT, TOGGLE_MODAL } = constants;
-const cookies = new Cookies();
-
+const { UPDATE_AUTH, LOGOUT, TOGGLE_MODAL } = types;
 const initialState = {
   user: null,
   session_id: cookies.get("session_id"),
@@ -13,17 +11,12 @@ const initialState = {
 const auth = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_AUTH:
-     cookies.set("session_id", action.payload.session_id, {
-          path: "/",
-          maxAge: 2592000
-        });
         return {
           ...state,
           user: action.payload.user,
           session_id: action.payload.session_id
         };
     case LOGOUT:
-        cookies.remove("session_id");
         return {
           ...state,
           user: null,

@@ -1,20 +1,15 @@
 
-import * as constants from "../../constants/constants";
-
-const {
-  CHANGE_PAGINATION,
-  RESET_PAGINATION,
-} = constants;
+import * as types from "./pagination.types";
 
 export const onChangePagination = payload => {
   return {
-    type: CHANGE_PAGINATION,
+    type: types.CHANGE_PAGINATION,
     payload
   };
 };
 
 export const resetPagination = () => {
   return {
-    type: RESET_PAGINATION
+    type: types.RESET_PAGINATION
   };
 };

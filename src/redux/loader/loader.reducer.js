@@ -1,6 +1,6 @@
-import * as constants from "../../constants/constants";
+import * as types from "./loader.types";
 
-const { TOGGLE_LOADER, TOGGLE_LOADER_VIDEOS, TOGGLE_LOADER_CREDITS } = constants;
+const { TOGGLE_LOADER, TOGGLE_LOADER_VIDEOS, TOGGLE_LOADER_CREDITS } = types;
 
 const initialState = {
   general: false,

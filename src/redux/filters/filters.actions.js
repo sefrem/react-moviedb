@@ -1,9 +1,9 @@
-import * as constants from "../../constants/constants";
+import * as types from "./filters.types";
 
 const {
   CHANGE_FILTER,
   RESET_FILTERS,
-} = constants;
+} = types;
 
 export const onChangeFilter = payload => {
     return {

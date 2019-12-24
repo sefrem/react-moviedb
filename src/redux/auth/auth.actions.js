@@ -1,11 +1,11 @@
 import CallApi from "../../api/api";
-import * as constants from "../../constants/constants";
+import * as types from "./auth.types";
 
 const {
   UPDATE_AUTH,
   LOGOUT,
   TOGGLE_MODAL
-} = constants;
+} = types;
 
 export const updateLogin = (session_id) => (dispatch) => {
     return CallApi.get("/account", {

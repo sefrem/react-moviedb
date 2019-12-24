@@ -1,6 +1,4 @@
-import * as constants from "../../constants/constants";
-
-const { CHANGE_PAGINATION, RESET_PAGINATION } = constants;
+import * as types from "./pagination.types";
 
 const initialState = {
     page: 1,
@@ -9,12 +7,12 @@ const initialState = {
   
   const pagination = (state = initialState, action) => {
     switch (action.type) {
-      case CHANGE_PAGINATION:
+      case types.CHANGE_PAGINATION:
           return {
             ...state,
             [action.payload.name]: action.payload.value
           };
-      case RESET_PAGINATION:
+      case types.RESET_PAGINATION:
           return {
             ...state,
             ...initialState
