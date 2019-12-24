@@ -1,24 +1,21 @@
 import React from "react";
-import CallApi from "../../api/api";
 import _ from "lodash";
 import Loader from "../../components/UI/Loader";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { fetchMovies } from "../../redux/movies/movies.actions";
-import { toggleLoader } from "../../redux/loader/loader.actions";
-import {  onChangePagination } from "../../redux/pagination/pagination.actions";
+import {  onChangePagination } from "../../redux/filters/filters.actions";
 
 
 function MoviesHOC(Component) {
   return class extends React.Component {
     componentDidMount() {
       const {
-        filters: { sort_by, primary_release_year, with_genres },
-        toggleLoader,
+        sorting : { sort_by, primary_release_year, with_genres },
         fetchMovies,
-        onChangePagination,
         pagination: { page }
       } = this.props;
+      
       const queryStringParams = {
         language: "en-EN",
         sort_by: sort_by,
@@ -28,19 +25,18 @@ function MoviesHOC(Component) {
       if (with_genres.length > 0) {
         queryStringParams.with_genres = with_genres.join(",");
       }
-      onChangePagination({ name: "page", value: page });
       fetchMovies(queryStringParams)
     }
 
     componentDidUpdate(state) {
       const {
-        filters,
-        filters: { sort_by, primary_release_year, with_genres },
+        sorting,
+        sorting: { sort_by, primary_release_year, with_genres },
         pagination: { page },
-        toggleLoader,
         onChangePagination,
-        getMovies
+        fetchMovies
       } = this.props;
+      
       const queryStringParams = {
         language: "en-EN",
         sort_by: sort_by,
@@ -50,25 +46,11 @@ function MoviesHOC(Component) {
       if (with_genres.length > 0) {
         queryStringParams.with_genres = with_genres.join(",");
       }
-
-      if (!_.isEqual(filters, state.filters)) {
-        toggleLoader();
+      if (!_.isEqual(sorting, state.sorting)) {
         onChangePagination({ name: "page", value: 1 });
-        return CallApi.get("/discover/movie", {
-          params: queryStringParams
-        }).then(data => {
-          getMovies(data.results);
-          toggleLoader();
-          onChangePagination({ name: "totalPages", value: data.total_pages });
-        });
+        return fetchMovies(queryStringParams);
       } else if (page !== state.pagination.page) {
-        toggleLoader();
-        return CallApi.get("/discover/movie", {
-          params: queryStringParams
-        }).then(data => {
-          getMovies(data.results);
-          toggleLoader();
-        });
+        return fetchMovies(queryStringParams)
       }
     }
 
@@ -89,8 +71,8 @@ function MoviesHOC(Component) {
 
 const mapStateToProps = state => {
   return {
-    filters: state.filters,
-    pagination: state.pagination,
+    sorting: state.filters.sorting,
+    pagination: state.filters.pagination,
     movies: state.movies.movies,
     isLoading: state.loader.general
   };
@@ -98,8 +80,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     onChangePagination,
-    fetchMovies, 
-    toggleLoader
+    fetchMovies
 };
 
 const composedHOC = compose(

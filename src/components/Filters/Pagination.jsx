@@ -1,7 +1,7 @@
 import React from "react";
 import ResetFilters from "./ResetFilters";
 import { connect } from "react-redux";
-import { onChangePagination } from "../../redux/pagination/pagination.actions";
+import { onChangePagination } from "../../redux/filters/filters.actions";
 
 class Pagination extends React.Component {
   
@@ -12,6 +12,7 @@ class Pagination extends React.Component {
     const {
       pagination: { page, totalPages }
     } = this.props;
+   
     return (
       <div className="d-flex flex-column align-items-center">
         <p className="mb-1">
@@ -48,7 +49,7 @@ class Pagination extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    pagination: state.pagination,
+    pagination: state.filters.pagination,
   };
 };
 

@@ -17,6 +17,7 @@ class MoviePage extends React.Component {
 
   componentDidMount() {
     const { toggleLoader } = this.props;
+    console.log(this.props.match)
     toggleLoader();
     CallApi.get(`/movie/${this.props.match.params.id}`).then(response => {
       this.setState({

@@ -56,7 +56,7 @@ function GenresHOC(Component) {
 
 const mapStateToProps = state => {
   return {
-    with_genres: state.filters.with_genres
+    with_genres: state.filters.sorting.with_genres
   }
 }
 

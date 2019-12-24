@@ -1,25 +1,43 @@
 import * as types from "./filters.types";
 
-const { CHANGE_FILTER, RESET_FILTERS } = types;
-
 const initialState = {
-  sort_by: "popularity.desc",
+  sorting: {
+    sort_by: "popularity.desc",
   primary_release_year: "",
   with_genres: []
+  },
+  pagination: {
+    page: 1,
+    totalPages: 500
+  }
+  
 };
 
 const filters = (state = initialState, action) => {
   switch (action.type) {
-    case CHANGE_FILTER:
+    case types.CHANGE_FILTER:
         return {
           ...state,
-          [action.payload.target.name]: action.payload.target.value
+          sorting: {
+            ...state.sorting,
+            [action.payload.target.name]: action.payload.target.value
+          }
         };
-    case RESET_FILTERS:
-        return {
-          ...state,
-          ...initialState
-        };
+
+    case types.CHANGE_PAGINATION:
+          return {
+            ...state,
+            pagination: {
+              ...state.pagination,
+              [action.payload.name]: action.payload.value
+            }
+          }
+           
+      case types.RESET_FILTERS:
+          return {
+            ...state,
+            ...initialState
+          };
     default:
       return state;
   }

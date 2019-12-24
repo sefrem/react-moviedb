@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { resetFilters } from "../../redux/filters/filters.actions";
-import { resetPagination } from "../../redux/pagination/pagination.actions"
+
 
 class ResetFilters extends React.Component {
   render() {
@@ -20,13 +20,9 @@ class ResetFilters extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    resetFilters: () => {
-    dispatch(resetFilters());
-    dispatch(resetPagination());
-  }
-}}
+const mapDispatchToProps = {
+    resetFilters
+}
 
 export default connect(
   undefined,
