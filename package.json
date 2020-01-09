@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/sefrem/react-moviedb",
+  "homepage": "https://sefrem.github.io",
   "dependencies": {
     "gh-pages": "^2.2.0",
     "lodash": "^4.17.15",
