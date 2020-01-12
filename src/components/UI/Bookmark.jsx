@@ -8,6 +8,20 @@ class Bookmark extends React.Component {
     bookmark: false
   };
 
+  componentDidMount() {
+    const { movie, watchlist } = this.props;
+    // console.log("movie", movie)
+    console.log("watchlist", watchlist)
+    watchlist.forEach(item => {
+       if(item.id === movie.id) {
+        console.log("here");
+        this.setState({
+          bookmark: true
+        })
+      }
+    })
+  }
+
   onToggleBookmark = () => {
     if (!this.props.session_id) {
       this.props.toggleModal();
@@ -47,7 +61,8 @@ class Bookmark extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    session_id: state.auth.session_id
+    session_id: state.auth.session_id,
+    watchlist: state.movies.watchlist
   }
 };
 

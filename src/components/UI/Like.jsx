@@ -9,6 +9,19 @@ class Like extends React.Component {
     like: false
   };
 
+  componentDidMount() {
+    const { movie, favoriteMovies } = this.props;
+    // console.log("movie", movie)
+    // console.log("favorite", favoriteMovies)
+    favoriteMovies.forEach(item => {
+       if(item.id === movie.id) {
+        this.setState({
+          like: true
+        })
+      }
+    })
+  }
+
   onToggleLike = () => {
     if (!this.props.session_id) {
       this.props.toggleModal();
@@ -48,7 +61,8 @@ class Like extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    session_id: state.auth.session_id
+    session_id: state.auth.session_id,
+    favoriteMovies: state.movies.favoriteMovies
   }
 };
 

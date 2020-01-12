@@ -3,7 +3,7 @@ import _ from "lodash";
 import Loader from "../../components/UI/Loader";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { fetchMovies } from "../../redux/movies/movies.actions";
+import { fetchMovies, fetchFavorite, fetchWatchlist } from "../../redux/movies/movies.actions";
 import {  onChangePagination } from "../../redux/filters/filters.actions";
 
 
@@ -13,7 +13,10 @@ function MoviesHOC(Component) {
       const {
         sorting : { sort_by, primary_release_year, with_genres },
         fetchMovies,
-        pagination: { page }
+        pagination: { page },
+        fetchFavorite,
+        fetchWatchlist,
+        session_id
       } = this.props;
       
       const queryStringParams = {
@@ -25,7 +28,10 @@ function MoviesHOC(Component) {
       if (with_genres.length > 0) {
         queryStringParams.with_genres = with_genres.join(",");
       }
-      fetchMovies(queryStringParams)
+      fetchFavorite({session_id: session_id});
+      fetchWatchlist({session_id: session_id})
+      fetchMovies(queryStringParams);
+      
     }
 
     componentDidUpdate(state) {
@@ -74,13 +80,16 @@ const mapStateToProps = state => {
     sorting: state.filters.sorting,
     pagination: state.filters.pagination,
     movies: state.movies.movies,
-    isLoading: state.loader.general
+    isLoading: state.loader.general,
+    session_id: state.auth.session_id
   };
 };
 
 const mapDispatchToProps = {
     onChangePagination,
-    fetchMovies
+    fetchMovies,
+    fetchFavorite,
+    fetchWatchlist
 };
 
 const composedHOC = compose(

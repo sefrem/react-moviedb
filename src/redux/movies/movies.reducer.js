@@ -1,14 +1,26 @@
 import * as types from "./movies.types";
 
 const initialState = {
-  movies: []
+  movies: [],
+  favoriteMovies: [],
+  watchlist: []
 }
 const movies = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_MOVIES:
         return {
           ...state,
-          movies: action.payload.slice()
+          movies: action.payload
+        }
+    case types.GET_FAVORITE_MOVIES: 
+        return {
+          ...state,
+          favoriteMovies: action.payload
+        }
+    case types.GET_WATCHLIST:
+        return {
+          ...state,
+          watchlist: action.payload
         }
     default:
       return state;
