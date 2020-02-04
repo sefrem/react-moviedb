@@ -10,8 +10,6 @@ class Bookmark extends React.Component {
 
   componentDidMount() {
     const { movie, watchlist } = this.props;
-    // console.log("movie", movie)
-    // console.log("watchlist", watchlist)
     watchlist.forEach(item => {
        if(item.id === movie.id) {
         this.setState({
