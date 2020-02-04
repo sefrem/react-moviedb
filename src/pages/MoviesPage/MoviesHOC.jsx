@@ -28,6 +28,11 @@ function MoviesHOC(Component) {
       if (with_genres.length > 0) {
         queryStringParams.with_genres = with_genres.join(",");
       }
+      console.log(typeof(queryStringParams))
+      console.log(typeof(fetchFavorite))
+      console.log(typeof(queryStringParams.language))
+      console.log(typeof((with_genres.length > 0)))
+      console.log(typeof(0))
       fetchFavorite({session_id: session_id});
       fetchWatchlist({session_id: session_id})
       fetchMovies(queryStringParams);

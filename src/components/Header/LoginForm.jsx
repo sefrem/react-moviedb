@@ -130,14 +130,14 @@ class LoginForm extends React.Component {
       <div className="form-login-container">
         <form className="form-login">
           <h1 className="h3 mb-3 font-weight-normal text-center">
-            Авторизация
+            Authorization
           </h1>
           <Field
-            labelText="Пользователь"
+            labelText="User"
             type="text"
             className="form-control"
             id="username"
-            placeholder="Пользователь (подсказка - Sefre)"
+            placeholder="User (hint - Sefre)"
             name="username"
             value={username}
             onChange={this.onChange}
@@ -145,11 +145,11 @@ class LoginForm extends React.Component {
             error={errors.username}
           />
           <Field
-            labelText="Пароль"
+            labelText="Password"
             type="password"
             className="form-control"
             id="password"
-            placeholder="Пароль (подсказка - 1p222)"
+            placeholder="Password (hint - 1p222)"
             name="password"
             value={password}
             onChange={this.onChange}
@@ -157,11 +157,11 @@ class LoginForm extends React.Component {
             error={errors.password}
           />
           <Field
-            labelText="Повторите пароль"
+            labelText="Repeat password"
             type="password"
             className="form-control"
             id="repeatPassword"
-            placeholder="Повторите пароль"
+            placeholder="Repeat password"
             name="repeatPassword"
             value={repeatPassword}
             onChange={this.onChange}
@@ -175,7 +175,7 @@ class LoginForm extends React.Component {
             onClick={this.onLogin}
             disabled={submitting}
           >
-            Вход
+            Login
           </button>
           {errors.base && (
             <div className="invalid-feedback text-center">{errors.base}</div>
